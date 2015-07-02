@@ -23,7 +23,12 @@ public class WebServer {
 	}
 
 	@Bean
+	public AccountsService accountsService() {
+		return new AccountsService("http://accounts-service");
+	}
+	
+	@Bean
 	public AccountsController accountsController() {
-		return new AccountsController("http://accounts-service");
+		return new AccountsController(accountsService());
 	}
 }

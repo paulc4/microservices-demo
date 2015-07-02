@@ -17,13 +17,12 @@ import org.springframework.web.client.RestTemplate;
 public class AccountsController {
 
 	@Autowired
-	protected RestTemplate restTemplate;
+	protected AccountsService accountsService;
 
 	protected String serviceUrl;
 
-	public AccountsController(String serviceUrl) {
-		this.serviceUrl = serviceUrl.startsWith("http") ? serviceUrl
-				: "http://" + serviceUrl;
+	public AccountsController(AccountsService accountsService) {
+		this.accountsService = accountsService;
 	}
 
 	@RequestMapping("/accounts/{accountNumber}")
@@ -31,8 +30,7 @@ public class AccountsController {
 
 		Logger.getGlobal().info("byNumber() invoked");
 
-		Account account = restTemplate.getForObject(serviceUrl
-				+ "/acounts/{number}", Account.class, accountNumber);
+		Account account = accountsService.findByNumber(accountNumber);
 
 		if (account == null)
 			throw new AccountNotFoundException(accountNumber);
@@ -44,12 +42,11 @@ public class AccountsController {
 	public List<Account> byOwner(@PathVariable("name") String name) {
 		Logger.getGlobal().info("byName() invoked:  for " + name);
 
-		Account[] accounts = restTemplate.getForObject(serviceUrl
-				+ "/accounts/owner/{name}", Account[].class, name);
+		List<Account> accounts = accountsService.byOwnerContains(name);
 
-		if (accounts == null || accounts.length == 0)
+		if (accounts == null)
 			throw new AccountNotFoundException(name);
 		else
-			return Arrays.asList(accounts);
+			return accounts;
 	}
 }
