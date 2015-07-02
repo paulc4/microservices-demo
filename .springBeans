@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+	</configs>
+	<autoconfigs>
+		<config>java:io.pivotal.microservices.services.registration.ServiceRegistrationServer</config>
+		<config>java:io.pivotal.microservices.services.web.WebServer</config>
+		<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
