@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Hide the access to the microservice inside this local service.
+ * 
+ * @author Paul Chapman
+ */
 @Service
 public class AccountsService {
 

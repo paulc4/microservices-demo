@@ -3,7 +3,6 @@ package io.pivotal.microservices.services.web;
 import io.pivotal.microservices.accounts.Account;
 import io.pivotal.microservices.accounts.AccountNotFoundException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,8 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
+/**
+ * Client controller, fetches Account info from the microservice via
+ * {@link AccountsService}.
+ * 
+ * @author Paul Chapman
+ */
 @RestController
 public class AccountsController {
 

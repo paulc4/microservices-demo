@@ -7,13 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Run as a micro-service, registering with the Discovery Server (Eureka).
+ * Run as a micro-service client, interacting with the Discovery Server
+ * (Eureka).
  * 
  * @author Paul Chapman
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan(useDefaultFilters=false)  // Disable component scanner
+// Disable component scanner ...
+@ComponentScan(useDefaultFilters = false)
 public class WebServer {
 
 	public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class WebServer {
 	public AccountsService accountsService() {
 		return new AccountsService("http://accounts-service");
 	}
-	
+
 	@Bean
 	public AccountsController accountsController() {
 		return new AccountsController(accountsService());
