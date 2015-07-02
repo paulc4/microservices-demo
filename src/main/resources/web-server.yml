@@ -1,0 +1,14 @@
+# Identify this application
+spring:
+  application:
+     name: web-service
+
+# Eureka Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+
+# Tomcat port
+server:
+  port: 3333

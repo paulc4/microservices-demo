@@ -1,7 +1,17 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+target/
+
+# Ignore OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+.~lock.*
 
 # Package Files #
 *.jar

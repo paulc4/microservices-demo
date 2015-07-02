@@ -1,0 +1,9 @@
+server:
+  port: 1111
+
+eureka:
+  instance:
+    hostname: localhost
+  client:  # Not a client
+    registerWithEureka: false
+    fetchRegistry: false
