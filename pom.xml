@@ -13,7 +13,8 @@
 	</parent>
 
 	<properties>
-		<start-class>io.pivotal.microservices.accounts.AccountsWebServiceApplication</start-class>
+	    <!--  Stand-alone RESTFul application for testing only -->
+		<start-class>io.pivotal.microservices.accounts.AccountsWebApplication</start-class>
 	</properties>
 
 	<dependencies>
