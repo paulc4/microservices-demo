@@ -13,8 +13,8 @@
 	</parent>
 
 	<properties>
-	    <!--  Stand-alone RESTFul application for testing only -->
-		<start-class>io.pivotal.microservices.accounts.AccountsWebApplication</start-class>
+		<!-- Stand-alone RESTFul application for testing only -->
+		<start-class>io.pivotal.microservices.services.Main</start-class>
 	</properties>
 
 	<dependencies>
@@ -28,6 +28,11 @@
 			<!-- Setup Spring MVC & REST, use Embedded Tomcat -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 		<dependency>

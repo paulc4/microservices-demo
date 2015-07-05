@@ -9,7 +9,7 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>java:io.pivotal.microservices.services.registration.ServiceRegistrationServer</config>
+		<config>java:io.pivotal.microservices.accounts.AccountsWebApplication</config>
 		<config>java:io.pivotal.microservices.services.web.WebServer</config>
 		<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
 	</autoconfigs>
