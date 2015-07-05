@@ -1,2 +1,3 @@
 # microservices-demo
-Demo application to go with Blog on spring.io
+
+Demo application to go with my Microservices Blog on spring.io
