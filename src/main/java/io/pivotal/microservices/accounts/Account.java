@@ -87,5 +87,10 @@ public class Account implements Serializable {
 	public void deposit(BigDecimal amount) {
 		balance.add(amount);
 	}
+	
+	@Override
+	public String toString() {
+		return number + " [" + owner + "]: $" + balance;
+	}
 
 }

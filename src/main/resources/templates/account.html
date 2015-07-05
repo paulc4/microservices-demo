@@ -1,0 +1,28 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Account Details</h1>
+
+	<dl class="dl-horizontal">
+		<dt>Number</dt>
+		<dd th:text="${account.number}">number</dd>
+		<dt>Owner</dt>
+		<dd th:text="${account.owner}">number</dd>
+		<dt>Balance</dt>
+		<dd th:text="${account.balance}">number</dd>
+	</dl>
+
+	<div style="height: 2cm">&nbsp;</div>
+
+	<div style="text-align: right">
+		Options: <a th:href="@{/}">Home</a> | <a
+			th:href="@{/accounts/search}">Account Search</a>
+	</div>
+
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

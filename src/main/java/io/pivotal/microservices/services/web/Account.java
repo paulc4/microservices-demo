@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+/**
+ * Account DTO - used to interact with the {@link WebAccountsService}.
+ * 
+ * @author Paul Chapman
+ */
 @JsonRootName("Account")
 public class Account {
 
@@ -56,6 +61,11 @@ public class Account {
 	protected void setBalance(BigDecimal value) {
 		balance = value;
 		balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+	}
+
+	@Override
+	public String toString() {
+		return number + " [" + owner + "]: $" + balance;
 	}
 
 }

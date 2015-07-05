@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Accounts by Name</h1>
+	<div th:if="not ${accounts}" class="error">
+		No accounts found containing '<span th:text="${search}">text</span>'.
+		<div style="height: 2cm">&nbsp;</div>
+	</div>
+
+	<div th:if="${accounts}">
+		<p>
+			Accounts whose owner contains ' <span th:text="${search}">text</span>'
+			are:
+		</p>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Account Number</th>
+					<th>Owner</th>
+					<th>Balance</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="account : ${accounts}">
+					<td><a href="account.html"
+						th:href="@{|/accounts/${account.number}|}"
+						th:text="|${account.number}|">11111111</a></td>
+					<td th:text="${account.owner}">Owner</td>
+					<td th:text="${account.balance}">0</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div style="text-align: right">
+		Options: <a th:href="@{/}">Home</a> | <a
+			th:href="@{/accounts/search}">Account Search</a>
+	</div>
+
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

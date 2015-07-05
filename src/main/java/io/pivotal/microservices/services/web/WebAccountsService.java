@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -16,31 +18,42 @@ import org.springframework.web.client.RestTemplate;
  * @author Paul Chapman
  */
 @Service
-public class AccountsService {
+public class WebAccountsService {
 
+	@Value("${PID}")
+	protected String processId;
+	
 	@Autowired
 	protected RestTemplate restTemplate;
 
 	protected String serviceUrl;
 
-	public AccountsService(String serviceUrl) {
+	protected Logger logger = Logger.getLogger(WebAccountsService.class
+			.getName());
+
+	public WebAccountsService(String serviceUrl) {
 		this.serviceUrl = serviceUrl.startsWith("http") ? serviceUrl
 				: "http://" + serviceUrl;
 	}
 
 	public Account findByNumber(String accountNumber) {
 
-		Logger.getGlobal().info("findByNumber() invoked: for " + accountNumber);
+		logger.info(processId + ": findByNumber() invoked: for " + accountNumber);
 
-		return restTemplate.getForObject(serviceUrl + "/acounts/{number}",
+		return restTemplate.getForObject(serviceUrl + "/accounts/{number}",
 				Account.class, accountNumber);
 	}
 
 	public List<Account> byOwnerContains(String name) {
-		Logger.getGlobal().info("byOwnerContains() invoked:  for " + name);
+		logger.info(processId + ": byOwnerContains() invoked:  for " + name);
+		Account[] accounts = null;
 
-		Account[] accounts = restTemplate.getForObject(serviceUrl
-				+ "/accounts/owner/{name}", Account[].class, name);
+		try {
+			accounts = restTemplate.getForObject(serviceUrl
+					+ "/accounts/owner/{name}", Account[].class, name);
+		} catch (HttpClientErrorException e) {
+			// Nothing found
+		}
 
 		if (accounts == null || accounts.length == 0)
 			return null;
