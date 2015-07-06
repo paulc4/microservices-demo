@@ -7,9 +7,3 @@ eureka:
   client:  # Not a client
     registerWithEureka: false
     fetchRegistry: false
-
-# Logging - NOTE these _cannot_ be loaded via @PropertySource
-logging:
-  level:
-    org:
-      springframework: WARN

@@ -21,10 +21,10 @@ public class AccountsControllerTests extends AbstractAccountControllerTests {
 		}
 
 		@Override
-		public List<Account> findByOwnerContaining(String owner) {
+		public List<Account> findByOwnerContainingIgnoreCase(String partialName) {
 			List<Account> accounts = new ArrayList<Account>();
 
-			if (ACCOUNT_1_NAME.toLowerCase().indexOf(owner.toLowerCase()) != -1)
+			if (ACCOUNT_1_NAME.toLowerCase().indexOf(partialName.toLowerCase()) != -1)
 				accounts.add(theAccount);
 
 			return accounts;

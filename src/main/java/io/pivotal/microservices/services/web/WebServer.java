@@ -19,7 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 @EnableDiscoveryClient
 // Disable component scanner ...
 @ComponentScan(useDefaultFilters = false)
-//@PropertySource("classpath:/io/pivotal/microservices/services/web/config.properties")
+// @PropertySource("classpath:/io/pivotal/microservices/services/web/config.properties")
 public class WebServer {
 
 	/**
@@ -28,7 +28,13 @@ public class WebServer {
 	 */
 	public static final String ACCOUNTS_SERVICE_URL = "http://ACCOUNTS-SERVICE";
 
-	public static void main(String[] args) {		
+	/**
+	 * Run the application using Spring Boot and an embedded servlet engine.
+	 * 
+	 * @param args
+	 *            Program arguments - ignored.
+	 */
+	public static void main(String[] args) {
 		// Tell server to look for web-server.properties or web-server.yml
 		System.setProperty("spring.config.name", "web-server");
 		SpringApplication.run(WebServer.class, args);
@@ -53,7 +59,7 @@ public class WebServer {
 	public WebAccountsController accountsController() {
 		return new WebAccountsController(accountsService());
 	}
-	
+
 	@Bean
 	public HomeController homeController() {
 		return new HomeController();

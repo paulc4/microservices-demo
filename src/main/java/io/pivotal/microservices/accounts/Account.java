@@ -8,6 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Persistent account entity with JPA markup. Accounts are stored in an H2
+ * relational database.
+ * 
+ * @author Paul Chapman
+ */
 @Entity
 @Table(name = "T_ACCOUNT")
 public class Account implements Serializable {
@@ -20,10 +26,10 @@ public class Account implements Serializable {
 	protected Long id;
 
 	protected String number;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	protected String owner;
-	
+
 	protected BigDecimal balance;
 
 	protected static Long getNextId() {
@@ -87,7 +93,7 @@ public class Account implements Serializable {
 	public void deposit(BigDecimal amount) {
 		balance.add(amount);
 	}
-	
+
 	@Override
 	public String toString() {
 		return number + " [" + owner + "]: $" + balance;

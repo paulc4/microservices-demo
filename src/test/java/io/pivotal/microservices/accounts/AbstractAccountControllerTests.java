@@ -42,9 +42,24 @@ public abstract class AbstractAccountControllerTests {
 	}
 
 	@Test
-	public void validAccountOwnerMatches() {
+	public void validAccountOwnerMatches1() {
 		Logger.getGlobal().info("Start validAccount test");
 		List<Account> accounts = accountController.byOwner("Keri");
+		Logger.getGlobal().info("In validAccount test");
+
+		Assert.assertNotNull(accounts);
+		Assert.assertEquals(1, accounts.size());
+
+		Account account = accounts.get(0);
+		Assert.assertEquals(ACCOUNT_1, account.getNumber());
+		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
+		Logger.getGlobal().info("End validAccount test");
+	}
+	
+	@Test
+	public void validAccountOwnerMatches2() {
+		Logger.getGlobal().info("Start validAccount test");
+		List<Account> accounts = accountController.byOwner("keri");
 		Logger.getGlobal().info("In validAccount test");
 
 		Assert.assertNotNull(accounts);
