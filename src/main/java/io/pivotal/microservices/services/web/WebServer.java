@@ -1,13 +1,10 @@
 package io.pivotal.microservices.services.web;
 
-import java.lang.management.ManagementFactory;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Accounts web-server. Works as a microservice client, fetching data from the
@@ -19,7 +16,6 @@ import org.springframework.context.annotation.PropertySource;
 @EnableDiscoveryClient
 // Disable component scanner ...
 @ComponentScan(useDefaultFilters = false)
-// @PropertySource("classpath:/io/pivotal/microservices/services/web/config.properties")
 public class WebServer {
 
 	/**

@@ -12,10 +12,5 @@ eureka:
 # Tomcat port
 server:
   port: 2222
-  
-# Logging - NOTE these _cannot_ be loaded via @PropertySource
-logging:
-  level:
-    org:
-      springframework: WARN
+
 

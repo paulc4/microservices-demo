@@ -40,6 +40,11 @@ public class WebAccountsController {
 		binder.setAllowedFields("accountNumber", "searchText");
 	}
 
+	@RequestMapping("/accounts")
+	public String goHome() {
+		return "index";
+	}
+
 	@RequestMapping("/accounts/{accountNumber}")
 	public String byNumber(Model model,
 			@PathVariable("accountNumber") String accountNumber) {

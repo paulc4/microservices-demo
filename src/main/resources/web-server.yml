@@ -3,7 +3,7 @@ spring:
   application:
     name: web-service  # Identify this application
   thymeleaf:
-    cache=false # Allow Thymeleaf templates to be reloaded at dev time
+    cache: false       # Allow Thymeleaf templates to be reloaded at runtime
 
 # Eureka Access
 eureka:
@@ -14,12 +14,6 @@ eureka:
 # Tomcat port
 server:
   port: 3333
-
-# Logging - NOTE these _cannot_ be loaded via @PropertySource
-logging:
-  level:
-    org:
-      springframework: WARN
 
 # Set the error path
 error:
