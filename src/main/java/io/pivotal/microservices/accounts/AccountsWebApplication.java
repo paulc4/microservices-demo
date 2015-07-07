@@ -14,21 +14,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 /**
- * Run the Accounts Service as a stand-alone Spring Boot web-application for
- * testing. To run as a microservice, use {@link AccountsServer}.
+ * The accounts web-application. This class has two uses: (1) provide
+ * configuration and setup for {@link AccountsServer} or (2) run as a
+ * stand-alone Spring Boot web-application for testing. There is no service
+ * registration here.
+ * <p>
+ * To execute as a microservice, run {@link AccountsServer} instead.
  * 
  * @author Paul Chapman
  */
 @SpringBootApplication
 @EntityScan("io.pivotal.microservices.accounts")
-@ComponentScan("io.pivotal.microservices.accounts")
 @EnableJpaRepositories("io.pivotal.microservices.accounts")
 @PropertySource("classpath:db-config.properties")
 public class AccountsWebApplication {

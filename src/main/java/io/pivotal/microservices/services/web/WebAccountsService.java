@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -20,9 +21,6 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class WebAccountsService {
 
-	@Value("${PID}")
-	protected String processId;
-	
 	@Autowired
 	protected RestTemplate restTemplate;
 
@@ -36,22 +34,34 @@ public class WebAccountsService {
 				: "http://" + serviceUrl;
 	}
 
+	/**
+	 * The RestTemplate works because it uses a custom request-factory that uses
+	 * Ribbon to look-up the service to use. This method simply exists to show
+	 * this.
+	 */
+	@PostConstruct
+	public void demoOnly() {
+		// Can't do this in the constructor because the RestTemplate injection
+		// happens afterwards.
+		logger.warning("The RestTemplate request factory is "
+				+ restTemplate.getRequestFactory());
+	}
+
 	public Account findByNumber(String accountNumber) {
 
-		logger.info(processId + ": findByNumber() invoked: for " + accountNumber);
-
+		logger.info("findByNumber() invoked: for " + accountNumber);
 		return restTemplate.getForObject(serviceUrl + "/accounts/{number}",
 				Account.class, accountNumber);
 	}
 
 	public List<Account> byOwnerContains(String name) {
-		logger.info(processId + ": byOwnerContains() invoked:  for " + name);
+		logger.info("byOwnerContains() invoked:  for " + name);
 		Account[] accounts = null;
 
 		try {
 			accounts = restTemplate.getForObject(serviceUrl
 					+ "/accounts/owner/{name}", Account[].class, name);
-		} catch (HttpClientErrorException e) {
+		} catch (HttpClientErrorException e) { // 404
 			// Nothing found
 		}
 
