@@ -28,7 +28,8 @@ To do this, open three CMD windows (Windows) or three Terminal windows (MacOS, L
 You should see servers being registered in the log output of the first (registration) window.
 As you interact you should logging in the second and third windows.
 
- 1. In a new window, run up a second account-server: `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar accounts 2223` using HTTP port 2223.
+ 1. In a new window, run up a second account-server using HTTP port 2223:
+     * `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar accounts 2223`
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
