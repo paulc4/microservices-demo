@@ -9,10 +9,24 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>java:io.pivotal.microservices.services.registration.RegistrationServer</config>
 		<config>java:io.pivotal.microservices.accounts.AccountsWebApplication</config>
 		<config>java:io.pivotal.microservices.services.web.WebServer</config>
 		<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
 	</autoconfigs>
 	<configSets>
+		<configSet>
+			<name><![CDATA[system]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
+				<config>java:io.pivotal.microservices.accounts.AccountsWebApplication</config>
+				<config>java:io.pivotal.microservices.services.registration.RegistrationServer</config>
+				<config>java:io.pivotal.microservices.services.web.WebServer</config>
+			</configs>
+			<profiles>
+			</profiles>
+		</configSet>
 	</configSets>
 </beansProjectDescription>
