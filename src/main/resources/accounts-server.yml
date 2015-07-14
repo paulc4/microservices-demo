@@ -1,16 +1,27 @@
-# Identify this application
+# Spring properties
 spring:
   application:
-     name: accounts-service
+     name: accounts-service  # Service registers under this name
+  freemarker:
+    enabled: false           # Ignore Eureka dashboard Freemarker templates
+  thymeleaf:
+    cache: false             # Allow Thymeleaf templates to be reloaded at runtime
+    prefix: classpath:/accounts-server/templates/
+                             # Template location for this application only
 
-# Eureka Access
+# Map the error path to error template (for Thymeleaf)
+error:
+  path=/error
+
+# Discovery Server Access
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
 
-# Tomcat port
+# HTTP Server
 server:
-  port: 2222
+  port: 2222   # HTTP (Tomcat) port
+
 
 

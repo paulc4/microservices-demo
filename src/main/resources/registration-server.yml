@@ -1,9 +1,15 @@
-server:
-  port: 1111
-
+# Configure this Discovery Server
 eureka:
   instance:
     hostname: localhost
-  client:  # Not a client
+  client:  # Not a client, don't register with yourself
     registerWithEureka: false
     fetchRegistry: false
+
+server:
+  port: 1111   # HTTP (Tomcat) port
+
+# Discovry Server Dashboard uses Freemarker.  Don't want Thymeleaf templates
+spring:
+  thymeleaf:
+    enabled: false     # Disable Thymeleaf 

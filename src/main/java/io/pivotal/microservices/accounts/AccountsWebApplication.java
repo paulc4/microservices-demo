@@ -20,10 +20,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 /**
- * The accounts web-application. This class has two uses: (1) provide
- * configuration and setup for {@link AccountsServer} or (2) run as a
- * stand-alone Spring Boot web-application for testing. There is no service
- * registration here.
+ * The accounts web-application. This class has two uses:
+ * <ol>
+ * <li>Provide configuration and setup for {@link AccountsServer} ... or</li>
+ * <li>Run as a stand-alone Spring Boot web-application for testing (in which
+ * case there is <i>no</i> microservice registration</li>
+ * </ol>
  * <p>
  * To execute as a microservice, run {@link AccountsServer} instead.
  * 
