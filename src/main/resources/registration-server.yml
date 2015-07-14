@@ -9,7 +9,7 @@ eureka:
 server:
   port: 1111   # HTTP (Tomcat) port
 
-# Discovry Server Dashboard uses Freemarker.  Don't want Thymeleaf templates
+# Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
 spring:
   thymeleaf:
     enabled: false     # Disable Thymeleaf 

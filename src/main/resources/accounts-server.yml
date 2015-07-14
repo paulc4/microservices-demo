@@ -3,10 +3,10 @@ spring:
   application:
      name: accounts-service  # Service registers under this name
   freemarker:
-    enabled: false           # Ignore Eureka dashboard Freemarker templates
+    enabled: false           # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
-    prefix: classpath:/accounts-server/templates/
+    prefix: classpath:/accounts-server/templates/    # Trailing / mandatory
                              # Template location for this application only
 
 # Map the error path to error template (for Thymeleaf)
