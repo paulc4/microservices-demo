@@ -1,0 +1,38 @@
+registration:
+  image: java:8
+  ports:
+    - 1111:1111
+  volumes:
+      - ./target:/app
+  command: java -Djava.security.egd=file:/dev/./urandom -jar /app/microservice-demo-0.0.1-SNAPSHOT.jar registration
+accountsA:
+  image: java:8
+  volumes:
+      - ./target:/app
+  command: java -Djava.security.egd=file:/dev/./urandom -jar /app/microservice-demo-0.0.1-SNAPSHOT.jar accounts
+  links:
+      - registration
+  environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:1111/eureka/
+accountsB:
+  image: java:8
+  volumes:
+      - ./target:/app
+  command: java -Djava.security.egd=file:/dev/./urandom -jar /app/microservice-demo-0.0.1-SNAPSHOT.jar accounts
+  links:
+      - registration
+  environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:1111/eureka/
+web:
+  image: java:8
+  ports:
+    - 3333:3333
+  volumes:
+      - ./target:/app
+  command: java -Djava.security.egd=file:/dev/./urandom -jar /app/microservice-demo-0.0.1-SNAPSHOT.jar web
+  links:
+      - registration
+      - accountsA
+      - accountsB
+  environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:1111/eureka/

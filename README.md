@@ -35,3 +35,19 @@ As you interact you should logging in the second and third windows.
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
+## Docker Compose
+
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration.
+
+This compose configuration assumes the docker daemon is running on a single VM.
+
+Assuming that you have [Docker Toolbox installed](https://www.docker.com/docker-toolbox) and running.
+
+ 1. Change to the directory where you have cloned the demo.
+ 1. Build the application using `mvn clean package`
+ 1. In the same window run: `docker-compose up`
+
+Currently there is no way in Compose to defer starting a container until after another container is up and running, subsequently in the container logs you will see Connection exceptions until all the containers are up and running.
+
+When all containers are up you can access the Eureka Dashboard at http://DOCKER_HOST_IP:1111, the DOCKER_HOST_IP can be determined from the $DOCKER_HOST environment variable, an env variable that tells your Docker client on your host machine the URI for the Docker daemon running on the VM.
+
