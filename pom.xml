@@ -11,6 +11,12 @@
 		<artifactId>spring-cloud-starter-parent</artifactId>
 		<version>Angel.SR3</version>
 	</parent>
+	
+	<modules>
+		<module>web-service</module>
+		<module>discovery-service</module>
+		<module>account-service</module>
+	</modules>
 
 
 	<dependencies>
