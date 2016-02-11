@@ -13,8 +13,7 @@
 	</parent>
 
 	<properties>
-		<!-- Stand-alone RESTFul application for testing only -->
-		<start-class>io.pivotal.microservices.services.Main</start-class>
+		<start-class>io.pivotal.microservices.services.web.WebServer</start-class>
 	</properties>
 
 	<dependencies>
