@@ -1,0 +1,27 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Microservices Demo - Accounts Server</h1>
+
+    <p>Accounts Server Microservice is running.</p>
+
+	<h3>Spring Boot URLs</h3>
+	<p>For those interested, Spring Boot provides RESTful URLs for
+		interrogating your application (they return JSON format data):</p>
+
+	<ul>
+		<li><a th:href="@{/beans}">The beans</a></li>
+		<li><a th:href="@{/env}">The environment</a></li>
+		<li><a th:href="@{/health}">Application health</a></li>
+		<li><a th:href="@{/metrics}">Application metrics</a></li>
+		<li><a th:href="@{/trace}">Request call trace</a></li>
+	</ul>
+
+	<div th:replace="footer :: copy"></div>
+
+</body>
+</html>
