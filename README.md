@@ -30,4 +30,34 @@ To do this, open three CMD windows (Windows) or three Terminal windows (MacOS, L
 You should see servers being registered in the log output of the first (registration) window.
 As you interact you should logging in the second and third windows.
 
+## Using Docker
+You may want to run the services in Docker containers. The following instructions will help you run the demo using three containers on a single host:
+To use this instructions you should have docker installed and a host running the Docker deamon.
+
+- change directory to the root directory of the project
+- run `mvn clean package`
+
+Step 1 - build the docker images:
+- to create the image for the discovery service run: `docker build -t spring-cloud-demo-discovery discovery-service`
+- to create the image for the account service run: `docker build -t spring-cloud-demo-account account-service`
+- to create the image for the web service run: `docker build -t spring-cloud-demo-web web-service`
+
+Step 2 - create a network for the containers
+- run: `docker network create spring-cloud-demo`
+
+Step 3 - run the containers:
+In 3 different terminal windows run the following commands
+- to run the container for the discovery service run: `docker run -it --net=spring-cloud-demo -p 1111:1111 --name discovery --hostname=discovery spring-cloud-demo-discovery`
+- to run the container for the account service run: `docker run -it --net=spring-cloud-demo --name account --hostname=account spring-cloud-demo-account`
+- to run the container for the web service run: `docker run -it --net=spring-cloud-demo -p 80:3333 --name web --hostname=web spring-cloud-demo-web`
+
+Step 4 - use the application using your browser:
+- find the ip of the host machine. to do so type `docker-machine ls` and find the ip of the host you are using.
+- browse [http://your-host-ip](http://your-host-ip) to access the web service
+- browse [http://your-host-ip:1111](http://your-host-ip:1111) to access the discovery service console
+
+Step 5 - run another account service and check the load balancing and failover:
+- to run the container for the account service run: `docker run -it --net=spring-cloud-demo --name account-2 --hostname=account-2 spring-cloud-demo-account`
+- browse [http://your-host-ip](http://your-host-ip) to access the web service
+- browse [http://your-host-ip:1111](http://your-host-ip:1111) to access the discovery service console
 
