@@ -2,8 +2,6 @@
 spring:
   application:
      name: accounts-service  # Service registers under this name
-  freemarker:
-    enabled: false           # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
     prefix: classpath:/accounts-server/templates/    # Trailing / mandatory
@@ -22,6 +20,17 @@ eureka:
 # HTTP Server
 server:
   port: 2222   # HTTP (Tomcat) port
+  
+  
+  
+---
 
+spring:
+    profiles: docker
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:1111/eureka/
 
 

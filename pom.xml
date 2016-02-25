@@ -2,20 +2,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.samples.service.service</groupId>
-	<artifactId>microservice-demo</artifactId>
+	<artifactId>microservice-demo-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-parent</artifactId>
 		<version>Angel.SR3</version>
 	</parent>
+	
+	<modules>
+		<module>web-service</module>
+		<module>discovery-service</module>
+		<module>account-service</module>
+	</modules>
 
-	<properties>
-		<!-- Stand-alone RESTFul application for testing only -->
-		<start-class>io.pivotal.microservices.services.Main</start-class>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -35,11 +37,6 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<dependency>
-			<!-- Setup Spring Data common components -->
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-commons</artifactId>
-		</dependency>
 
 		<dependency>
 			<!-- Testing starter -->
@@ -47,17 +44,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
 
-		<dependency>
-			<!-- Setup Spring Data JPA Repository support -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<!-- In-memory database for testing/demos -->
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-		</dependency>
 
 		<dependency>
 			<!-- Spring Cloud starter -->
@@ -65,12 +51,13 @@
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
 
+
 		<dependency>
-			<!-- Eureka service registration -->
+			<!-- Eureka service registration -->			
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>
-	</dependencies>
+	</dependencies> 
 
 	<build>
 		<plugins>
