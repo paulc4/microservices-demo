@@ -15,6 +15,9 @@ error:
 
 # Discovery Server Access
 eureka:
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
