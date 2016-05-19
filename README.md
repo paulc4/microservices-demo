@@ -1,6 +1,6 @@
 # microservices-demo
 
-Demo application to go with my [Microservices Blog](https://spring.io/admin/blog/2181-microservices-with-spring) on the spring.io website.
+Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.
 
 ![Demo System Schematic](https://github.com/paulc4/microservices-demo/blob/master/mini-system.jpg)
 
