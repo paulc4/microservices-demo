@@ -6,6 +6,10 @@ Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/
 
 Clone it and either load into your favorite IDE or use maven directly.
 
+## Versions
+
+To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, click on the `release` tab in https://github.com/paulc4/microservices-demo.
+
 ## Using an IDE
 
 You can run the system in your IDE by running the three servers in order: _RegistrationService_, _AccountsService_ and _WebService_.
