@@ -1,7 +1,5 @@
 package io.pivotal.microservices.services.accounts;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +28,6 @@ public class AccountsServer {
 	protected AccountRepository accountRepository;
 
 	protected Logger logger = Logger.getLogger(AccountsServer.class.getName());
-
-	public AccountsServer() {
-		try {
-			// Use hostname as instance id
-			System.setProperty("spring.application.instance_id", InetAddress.getLocalHost().getHostName());
-		} catch (UnknownHostException e) {
-			; // not available
-		}
-	}
 
 	/**
 	 * Run the application using Spring Boot and an embedded servlet engine.
