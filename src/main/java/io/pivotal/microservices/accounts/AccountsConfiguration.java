@@ -30,9 +30,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 @PropertySource("classpath:db-config.properties")
 public class AccountsConfiguration {
 
-	@Value("${eureka.instance.metadataMap.instanceId}")
-	String uniqueId;
-
 	protected Logger logger;
 
 	public AccountsConfiguration() {
@@ -69,17 +66,5 @@ public class AccountsConfiguration {
 		}
 
 		return dataSource;
-	}
-
-	/**
-	 * Don't want this bean really, but it's a quick and dirty way to log the
-	 * uniqueId.
-	 * 
-	 * @return
-	 */
-	@Bean
-	String eurekaClientId() {
-		logger.warning("Eureka client ID is: " + uniqueId);
-		return uniqueId;
 	}
 }
