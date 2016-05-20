@@ -8,7 +8,7 @@ Clone it and either load into your favorite IDE or use maven directly.
 
 ## Versions
 
-To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, use its tag: `v1.0.0`.
+To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, click on the releases tab in https://github.com/paulc4/microservices-demo.
 
 ## Using an IDE
 
