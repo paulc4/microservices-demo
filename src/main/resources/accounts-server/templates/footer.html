@@ -1,10 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+
+<div th:fragment="copy" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-<body>
-
-	<footer th:fragment="copy">Pivotal Software, Inc. - July 2015</footer>
+	<footer>Pivotal Software, Inc. - July 2015</footer>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script th:fragment="copy" src="https://code.jquery.com/jquery.js"></script>
@@ -13,6 +12,6 @@
 	<script th:fragment="copy"
 		src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 
-</body>
+</div>
 
-</html>
+
