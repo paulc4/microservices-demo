@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.7.3.201602250914-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -10,7 +10,6 @@
 	</configs>
 	<autoconfigs>
 		<config>java:io.pivotal.microservices.services.registration.RegistrationServer</config>
-		<config>java:io.pivotal.microservices.accounts.AccountsWebApplication</config>
 		<config>java:io.pivotal.microservices.services.web.WebServer</config>
 		<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
 	</autoconfigs>
@@ -20,10 +19,9 @@
 			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
 			<incomplete>false</incomplete>
 			<configs>
-				<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
-				<config>java:io.pivotal.microservices.accounts.AccountsWebApplication</config>
 				<config>java:io.pivotal.microservices.services.registration.RegistrationServer</config>
 				<config>java:io.pivotal.microservices.services.web.WebServer</config>
+				<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
 			</configs>
 			<profiles>
 			</profiles>
