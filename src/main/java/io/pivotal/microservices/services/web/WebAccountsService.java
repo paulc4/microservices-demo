@@ -1,19 +1,19 @@
 package io.pivotal.microservices.services.web;
 
-import io.pivotal.microservices.accounts.Account;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
-import io.pivotal.microservices.accounts.AccountNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import io.pivotal.microservices.accounts.Account;
+import io.pivotal.microservices.accounts.AccountNotFoundException;
 
 /**
  * Hide the access to the microservice inside this local service.
@@ -47,7 +47,7 @@ public class WebAccountsService {
 		// Can't do this in the constructor because the RestTemplate injection
 		// happens afterwards.
 		logger.warning("The RestTemplate request factory is "
-				+ restTemplate.getRequestFactory());
+				+ restTemplate.getRequestFactory().getClass());
 	}
 
 	public Account findByNumber(String accountNumber) {
