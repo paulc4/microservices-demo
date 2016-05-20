@@ -8,7 +8,9 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
+import io.pivotal.microservices.accounts.AccountNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 public class WebAccountsService {
 
 	@Autowired
+	@LoadBalanced
 	protected RestTemplate restTemplate;
 
 	protected String serviceUrl;
@@ -69,5 +72,15 @@ public class WebAccountsService {
 			return null;
 		else
 			return Arrays.asList(accounts);
+	}
+
+	public Account getByNumber(String accountNumber) {
+		Account account = restTemplate.getForObject(serviceUrl
+				+ "/accounts/{number}", Account.class, accountNumber);
+
+		if (account == null)
+			throw new AccountNotFoundException(accountNumber);
+		else
+			return account;
 	}
 }
