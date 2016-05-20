@@ -30,7 +30,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 @PropertySource("classpath:db-config.properties")
 public class AccountsConfiguration {
 
-	@Value("eureka.instance.metadataMap.instanceId")
+	@Value("${eureka.instance.metadataMap.instanceId}")
 	String uniqueId;
 
 	protected Logger logger;
