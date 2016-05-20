@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import io.pivotal.microservices.exceptions.AccountNotFoundException;
+
 public abstract class AbstractAccountControllerTests {
 
 	protected static final String ACCOUNT_1 = "123456789";
@@ -16,7 +18,7 @@ public abstract class AbstractAccountControllerTests {
 	AccountsController accountController;
 
 	@Test
-	public void validAccountNuber() {
+	public void validAccountNumber() {
 		Logger.getGlobal().info("Start validAccountNumber test");
 		Account account = accountController.byNumber(ACCOUNT_1);
 
