@@ -1,6 +1,6 @@
 package io.pivotal.microservices.services.web;
 
-import io.pivotal.microservices.accounts.Account;
+import io.pivotal.microservices.services.web.Account;
 
 import java.util.List;
 import java.util.logging.Logger;

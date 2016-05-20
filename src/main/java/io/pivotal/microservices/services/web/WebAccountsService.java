@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import io.pivotal.microservices.accounts.Account;
-import io.pivotal.microservices.accounts.AccountNotFoundException;
+import io.pivotal.microservices.exceptions.AccountNotFoundException;
 
 /**
  * Hide the access to the microservice inside this local service.
