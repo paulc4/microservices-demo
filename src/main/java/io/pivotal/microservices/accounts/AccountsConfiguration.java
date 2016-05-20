@@ -1,7 +1,5 @@
 package io.pivotal.microservices.accounts;
 
-import io.pivotal.microservices.services.accounts.AccountsServer;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -10,44 +8,32 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 /**
- * The accounts web-application. This class has two uses:
- * <ol>
- * <li>Provide configuration and setup for {@link AccountsServer} ... or</li>
- * <li>Run as a stand-alone Spring Boot web-application for testing (in which
- * case there is <i>no</i> microservice registration</li>
- * </ol>
- * <p>
- * To execute as a microservice, run {@link AccountsServer} instead.
+ * The accounts Spring configuration.
  * 
  * @author Paul Chapman
  */
-@SpringBootApplication
+@Configuration
+@ComponentScan
 @EntityScan("io.pivotal.microservices.accounts")
 @EnableJpaRepositories("io.pivotal.microservices.accounts")
 @PropertySource("classpath:db-config.properties")
-public class AccountsWebApplication {
+public class AccountsConfiguration {
 
-	protected Logger logger = Logger.getLogger(AccountsWebApplication.class
-			.getName());
+	protected Logger logger;
 
-	/**
-	 * Run the application using Spring Boot and an embedded servlet engine.
-	 * 
-	 * @param args
-	 *            Program arguments - ignored.
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(AccountsWebApplication.class, args);
+	public AccountsConfiguration() {
+		logger = Logger.getLogger(getClass().getName());
 	}
 
 	/**
@@ -60,16 +46,14 @@ public class AccountsWebApplication {
 
 		// Create an in-memory H2 relational database containing some demo
 		// accounts.
-		DataSource dataSource = (new EmbeddedDatabaseBuilder())
-				.addScript("classpath:testdb/schema.sql")
+		DataSource dataSource = (new EmbeddedDatabaseBuilder()).addScript("classpath:testdb/schema.sql")
 				.addScript("classpath:testdb/data.sql").build();
 
 		logger.info("dataSource = " + dataSource);
 
 		// Sanity check
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		List<Map<String, Object>> accounts = jdbcTemplate
-				.queryForList("SELECT number FROM T_ACCOUNT");
+		List<Map<String, Object>> accounts = jdbcTemplate.queryForList("SELECT number FROM T_ACCOUNT");
 		logger.info("System has " + accounts.size() + " accounts");
 
 		// Populate with random balances
@@ -77,11 +61,8 @@ public class AccountsWebApplication {
 
 		for (Map<String, Object> item : accounts) {
 			String number = (String) item.get("number");
-			BigDecimal balance = new BigDecimal(rand.nextInt(10000000) / 100.0)
-					.setScale(2, BigDecimal.ROUND_HALF_UP);
-			jdbcTemplate.update(
-					"UPDATE T_ACCOUNT SET balance = ? WHERE number = ?",
-					balance, number);
+			BigDecimal balance = new BigDecimal(rand.nextInt(10000000) / 100.0).setScale(2, BigDecimal.ROUND_HALF_UP);
+			jdbcTemplate.update("UPDATE T_ACCOUNT SET balance = ? WHERE number = ?", balance, number);
 		}
 
 		return dataSource;
