@@ -12,6 +12,7 @@
 		<config>java:io.pivotal.microservices.services.registration.RegistrationServer</config>
 		<config>java:io.pivotal.microservices.services.web.WebServer</config>
 		<config>java:io.pivotal.microservices.services.accounts.AccountsServer</config>
+		<config>java:io.pivotal.microservices.accounts.AccountsConfiguration</config>
 	</autoconfigs>
 	<configSets>
 		<configSet>
