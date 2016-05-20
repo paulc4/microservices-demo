@@ -9,6 +9,10 @@ spring:
     prefix: classpath:/accounts-server/templates/    # Trailing / mandatory
                              # Template location for this application only
 
+# Note that this is really a RESTful application, however for convenience it has
+# home-page so you can check it is running in a browser.  Normally you would not
+# enable a view-layer (like Thymeleaf) in a RESTful app.
+
 # Map the error path to error template (for Thymeleaf)
 error:
   path: /error
