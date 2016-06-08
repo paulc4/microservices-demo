@@ -26,9 +26,9 @@ To do this, open three CMD windows (Windows) or three Terminal windows (MacOS, L
 
  1. In each window, change to the directory where you cloned the demo.
  1. In the first window, build the application using `mvn clean package`
- 1. In the same window run: `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar registration`
- 1. Switch to the second window and run: `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar accounts`
- 1. In the third window run: `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar web`
+ 1. In the same window run: `java -jar target/microservice-demo-1.1.0.RELEASE.jar registration`
+ 1. Switch to the second window and run: `java -jar target/microservice-demo-1.1.0.RELEASE.jar accounts`
+ 1. In the third window run: `java -jar target/microservice-demo-1.1.0.RELEASE.jar web`
  1. In your favorite browser open the same two links: [http://localhost:1111](http://localhost:1111) and [http://localhost:3333](http://localhost:3333)
 
 You should see servers being registered in the log output of the first (registration) window.
