@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'spring-boot'
+
+
+buildscript {
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:" + springBootVersion)
+    }
+
+    repositories {
+	mavenCentral()
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Micro Services Demo', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'org.springframework.boot:spring-boot-starter:' + springBootVersion,
+            'org.springframework.boot:spring-boot-starter-web:' + springBootVersion,
+            'org.springframework.boot:spring-boot-starter-thymeleaf:' + springBootVersion,
+            'org.springframework.data:spring-data-commons:' + springDataCommonsVersion,
+            'org.springframework.boot:spring-boot-starter-test:' + springBootVersion,
+            'org.springframework.boot:spring-boot-starter-data-jpa:' + springBootVersion,
+            'org.hsqldb:hsqldb:' + hsqldbVersion,
+            'org.springframework.cloud:spring-cloud-starter:' + springCloudStarterVersion,
+            'org.springframework.cloud:spring-cloud-starter-eureka-server:' + springCloudStarterEurekaServerVersion
+
+    testCompile 'junit:junit:4.+'
+}
+
+springBoot {
+    mainClass = "io.pivotal.microservices.services.Main"
+}
+
