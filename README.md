@@ -37,7 +37,7 @@ As you interact with the web-application ([http://localhost:3333](http://localho
 in the second and third windows.
 
  1. In a new window, run up a second account-server using HTTP port 2223:
-     * `java -jar target/microservice-demo-0.0.1-SNAPSHOT.jar accounts 2223`
+     * `java -jar target/microservice-demo-1.1.0.RELEASE.jar accounts 2223`
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
