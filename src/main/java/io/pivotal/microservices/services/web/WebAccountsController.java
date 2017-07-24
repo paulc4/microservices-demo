@@ -17,19 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Client controller, fetches Account info from the microservice via
- * {@link WebAccountsService}.
+ * Client controller, fetches Account info from the microservice via {@link WebAccountsService}.
  * 
  * @author Paul Chapman
  */
 @Controller
 public class WebAccountsController {
-
 	@Autowired
 	protected WebAccountsService accountsService;
 
-	protected Logger logger = Logger.getLogger(WebAccountsController.class
-			.getName());
+	protected Logger logger = Logger.getLogger(WebAccountsController.class.getName());
 
 	public WebAccountsController(WebAccountsService accountsService) {
 		this.accountsService = accountsService;
@@ -46,8 +43,7 @@ public class WebAccountsController {
 	}
 
 	@RequestMapping("/accounts/{accountNumber}")
-	public String byNumber(Model model,
-			@PathVariable("accountNumber") String accountNumber) {
+	public String byNumber(Model model, @PathVariable("accountNumber") String accountNumber) {
 
 		logger.info("web-service byNumber() invoked: " + accountNumber);
 
@@ -76,8 +72,7 @@ public class WebAccountsController {
 	}
 
 	@RequestMapping(value = "/accounts/dosearch")
-	public String doSearch(Model model, SearchCriteria criteria,
-			BindingResult result) {
+	public String doSearch(Model model, SearchCriteria criteria, BindingResult result) {
 		logger.info("web-service search() invoked: " + criteria);
 
 		criteria.validate(result);
