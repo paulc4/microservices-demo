@@ -3,9 +3,10 @@ package io.pivotal.microservices.accounts;
 import org.junit.runner.RunWith;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import io.pivotal.microservices.services.accounts.AccountsServer;
 
@@ -17,6 +18,7 @@ import io.pivotal.microservices.services.accounts.AccountsServer;
  * @author Paul Chapman
  *
  */
+
 @SpringBootApplication
 @Import(AccountsConfiguration.class)
 class AccountsMain {
@@ -35,8 +37,9 @@ class AccountsMain {
  * 
  * @author Paul Chapman
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AccountsMain.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = AccountsMain.class)
+@WebAppConfiguration
 public class AccountsControllerIntegrationTests extends AbstractAccountControllerTests {
 
 }
