@@ -12,7 +12,9 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 Current version v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware.  I will upgrade to Spring Boot 2 and Finchly release train once Finchly is GA.
 
-To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, click on the `release` tab in https://github.com/paulc4/microservices-demo.
+To access V1.1.0 of the repo, corresponding to Spring Cloud release-train Brixton.SR3, click on the `release` tab in https://github.com/paulc4/microservices-demo.  Or use `git checkout v1.1.0`.
+
+To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, click on the `release` tab in https://github.com/paulc4/microservices-demo.  Or use `git checkout v1.0.0`.
 
 ## Using an IDE
 
