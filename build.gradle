@@ -15,9 +15,17 @@ buildscript {
     }
 }
 
-jar {
+assemble {
     manifest {
         attributes 'Implementation-Title': 'Micro Services Demo', 'Implementation-Version': version
+    }
+
+    doLast {
+        mkdir 'target'
+        copy {
+            from 'build/libs'
+            into 'target'
+        }
     }
 }
 

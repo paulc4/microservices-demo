@@ -10,12 +10,13 @@ spring:
                              # Template location for this application only
 
 # Map the error path to error template (for Thymeleaf)
-error:
-  path: /error
+error.path: /error
 
 # HTTP Server
-server:
-  port: 2222   # HTTP (Tomcat) port
+server.port: 2222   # HTTP (Tomcat) port
+
+# Enable actuator access without security checks - DEVELOPEMENT ONLY
+management.security.enabled: false
 
 # Discovery Server Access
 #  1. DEV ONLY: Reduce the lease renewal interval to speed up registration

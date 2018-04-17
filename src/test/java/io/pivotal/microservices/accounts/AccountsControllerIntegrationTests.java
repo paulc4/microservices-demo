@@ -1,42 +1,26 @@
 package io.pivotal.microservices.accounts;
 
 import org.junit.runner.RunWith;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import io.pivotal.microservices.services.accounts.AccountsServer;
-
-/**
- * Imitates the {@link AccountsServer}, but without using any of the discovery
- * client code. Allows the test to use the same configuration as the
- * <code>AccountsServer</code> would.
- * 
- * @author Paul Chapman
- *
- */
-@SpringBootApplication
-@Import(AccountsConfiguration.class)
-class AccountsMain {
-	public static void main(String[] args) {
-		// Tell server to look for accounts-server.properties or
-		// accounts-server.yml
-		System.setProperty("spring.config.name", "accounts-server");
-		SpringApplication.run(AccountsMain.class, args);
-	}
-}
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Spring Integration/System test - by using @SpringApplicationConfiguration
  * instead of @ContextConfiguration, it picks up the same configuration that
  * Spring Boot would use.
+ * <p>
+ * Note 1: We have disabled the discovery client since it is not required for
+ * testing (the tests pass without it but generate ugly exceptions failing to
+ * contact the discovery server).
+ * <p>
+ * Note 2: @SpringBootTest does not, of itself, enable auto-configuration.
  * 
  * @author Paul Chapman
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AccountsMain.class)
+@RunWith(SpringRunner.class)
+@EnableAutoConfiguration
+@SpringBootTest(classes = AccountsConfiguration.class, properties = { "eureka.client.enabled=false" })
 public class AccountsControllerIntegrationTests extends AbstractAccountControllerTests {
 
 }

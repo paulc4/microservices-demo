@@ -4,11 +4,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 
 import io.pivotal.microservices.exceptions.AccountNotFoundException;
 
+// The following are equivalent, we only need to use one.
+
+// 1. Read test properties from a file - neater when there are multiple properties
+@TestPropertySource(locations = "classpath:account-controller-tests.properties")
+
+// 2. Define test properties directly, acceptable here since we only have one.
+// @TestPropertySource(properties={"eureka.client.enabled=false"})
 public abstract class AbstractAccountControllerTests {
 
 	protected static final String ACCOUNT_1 = "123456789";
@@ -27,7 +36,7 @@ public abstract class AbstractAccountControllerTests {
 		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
-	
+
 	@Test
 	public void validAccountOwner() {
 		Logger.getGlobal().info("Start validAccount test");
@@ -57,7 +66,7 @@ public abstract class AbstractAccountControllerTests {
 		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
-	
+
 	@Test
 	public void validAccountOwnerMatches2() {
 		Logger.getGlobal().info("Start validAccount test");
