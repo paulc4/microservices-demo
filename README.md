@@ -10,11 +10,16 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 ## Versions
 
-Current version v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware.  I will upgrade to Spring Boot 2 and Finchly release train once Finchly is GA.
+Current version (June 2018) v2.0.0 corresponds to Spring Boot 2 and Finchly release train.
 
-To access V1.1.0 of the repo, corresponding to Spring Cloud release-train Brixton, click on the `release` tab in https://github.com/paulc4/microservices-demo.  Or use `git checkout v1.1.0` after cloning locally.
+Previous versions have been tagged and can be accessed using the `release` tab above or using `git checkout <version>` - for example `git checkout v1.2.0`.
 
-To access V1.0.0 of the repo, corresponding to Spring Cloud release-train Angel.SR6, click on the `release` tab in https://github.com/paulc4/microservices-demo.  Or use `git checkout v1.0.0` after cloning locally.
+Tagged versions are:
+
+* v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchly
+* v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware
+* v1.1.0 corresponds to Spring Cloud release-train Brixton
+* v1.0.0 corresponds to Spring Cloud release-train Angel.SR6
 
 ## Using an IDE
 
@@ -31,7 +36,7 @@ You may find it easier to view the different applications by running them from a
 For convenience we are building a 'fat' executble jar whose start-class (main method entry-point) is defined to be in the class `io.pivotal.microservices.services.Main`.  This application expects a single command-line argument that tells it to run as any of our three servers.
 
 ```
-java -jar target/microservices-demo-1.2.0.RELEASE.jar registration|accounts|web
+java -jar target/microservices-demo-2.0.0.RELEASE.jar registration|accounts|web
 ```
 
 ### Priocedure
@@ -40,10 +45,10 @@ To run the microservices system from the command-line, open three CMD windows (W
 
  1. In each window, change to the directory where you cloned the demo.
  1. In the first window, build the application using either `mvn clean package` or `gradle clean assemble`.  Either way the
-    generated file will be `target/microservices-demo-1.2.0.RELEASE.jar` (even if you used gradle).
- 1. In the same window run: `java -jar target/microservices-demo-1.2.0.RELEASE.jar registration`
+    generated file will be `target/microservices-demo-2.0.0.RELEASE.jar` (even if you used gradle).
+ 1. In the same window run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar registration`
  1. Switch to the second window and run: `java -jar target/microservices-demo-1.2.0.RELEASE.jar accounts`
- 1. In the third window run: `java -jar target/microservices-demo-1.2.0.RELEASE.jar web`
+ 1. In the third window run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar web`
  1. In your favorite browser open the same two links: [http://localhost:1111](http://localhost:1111) and [http://localhost:3333](http://localhost:3333)
 
 You should see servers being registered in the log output of the first (registration) window.
@@ -52,7 +57,7 @@ As you interact wiht the Web application, you should logging in the both the sec
 For a list of valid accounts refer to the [data.sql](https://github.com/paulc4/microservices-demo/blob/master/src/main/resources/testdb/data.sql) that is used by the Account Service to set them up.
 
  1. In a new window, run up a second account-server using HTTP port 2223:
-     * `java -jar target/microservices-demo-1.2.0.RELEASE.jar accounts 2223`
+     * `java -jar target/microservices-demo-2.0.0.RELEASE.jar accounts 2223`
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
