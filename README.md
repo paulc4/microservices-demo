@@ -12,7 +12,7 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 Current version (June 2018) v2.0.0 corresponds to Spring Boot 2 and Finchly release train.
 
-Previous versions have been tagged and can be accessed using the `release` tab above or using `git checkout <version>` - for example `git checkout v1.2.0`.
+Previous versions have been tagged and can be accessed using the `Branch` button above or using `git checkout <version>` - for example `git checkout v1.2.0`.
 
 Tagged versions are:
 
