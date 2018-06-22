@@ -1,3 +1,8 @@
+# Ignore JDBC Dependency
+# This demo puts 3 applicatons in the same project so they all pick up the
+# JDBC Depdendency, but this application doesn't need it.
+spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
 # Spring properties
 spring:
   application:

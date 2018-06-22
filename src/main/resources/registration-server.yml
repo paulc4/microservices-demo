@@ -1,3 +1,8 @@
+# Ignore JDBC Dependency
+# This demo puts 3 applicatons in the same project so they all pick up the
+# JDBC Depdendency, but this application doesn't need it.
+spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
 # Configure this Discovery Server
 eureka:
   instance:
@@ -5,7 +10,7 @@ eureka:
   client:  # Not a client, don't register with yourself
     registerWithEureka: false
     fetchRegistry: false
-     
+
 server:
   port: 1111   # HTTP (Tomcat) port
 
@@ -13,3 +18,5 @@ server:
 spring:
   thymeleaf:
     enabled: false     # Disable Thymeleaf 
+  datasource:
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
