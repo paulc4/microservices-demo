@@ -34,13 +34,15 @@
 		interrogating your application (they return JSON format data):</p>
 
 	<ul>
-		<li><a th:href="@{/beans}">The beans</a></li>
-		<li><a th:href="@{/env}">The environment</a></li>
-		<li><a th:href="@{/dump}">Thread dump</a></li>
-		<li><a th:href="@{/health}">Application health</a></li>
-		<li><a th:href="@{/info}">Application information</a></li>
-		<li><a th:href="@{/metrics}">Application metrics</a></li>
-		<li><a th:href="@{/trace}">Request call trace</a></li>
+		<li><a th:href="@{/actuator/beans}">The beans</a></li>
+		<li><a th:href="@{/actuator/env}">The environment</a></li>
+		<li><a th:href="@{/actuator/health}">Application health</a></li>
+		<li><a th:href="@{/actuator/mappings}">URL Mappings</a> - including
+		     the /account mappings</li>
+		<li><a th:href="@{/actuator/metrics}">Application metrics</a> - add any 
+		     metric name to the end of this URL, for example 
+		     <a th:href="@{/actuator/metrics/http.server.requests}">/actuator/metrics/http.server.requests</a></li>
+		<li><a th:href="@{/actuator}">List of actuator endpoints</a></li>
 	</ul>
 
 	<div th:replace="footer :: copy"></div>

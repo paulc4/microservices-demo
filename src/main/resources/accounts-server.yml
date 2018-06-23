@@ -15,9 +15,6 @@ error.path: /error
 # HTTP Server
 server.port: 2222   # HTTP (Tomcat) port
 
-# Enable actuator access without security checks - DEVELOPEMENT ONLY
-management.security.enabled: false
-
 # Discovery Server Access
 #  1. DEV ONLY: Reduce the lease renewal interval to speed up registration
 #  2. Define URL of registration server (defaultZone)
@@ -36,7 +33,11 @@ eureka:
 #     NOTE-2: Syntax ${x:${y}} = use $x if set, otherwise use $y
 #   metadataMap:
 #     instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-      
+
+
+# Enable actuator access without security checks - DEVELOPEMENT ONLY
+# management.security.enabled: false   Spring Boot 1.5 property
+management.endpoints.web.exposure.include: '*'
 
 
 

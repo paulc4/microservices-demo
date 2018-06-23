@@ -1,6 +1,6 @@
 # Ignore JDBC Dependency
-# This demo puts 3 applicatons in the same project so they all pick up the
-# JDBC Depdendency, but this application doesn't need it.
+# This demo puts 3 applicatons in the same project, so by default they all pick
+# up the JDBC Depdendency, but this application doesn't need it.
 spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 # Spring properties
@@ -15,19 +15,22 @@ spring:
                        # Template location for this application only
 
 # Map the error path to error template (for Thymeleaf)
-error:
-  path=/error
+error.path: /error
+
+# HTTP Server
+server.port: 3333   # HTTP (Tomcat) port
 
 # Discovery Server Access
-#  1. Define URL of registration server (defaultZone)
-#  2. Reduce lease-renewal time so processes register more quickly
+#  1. DEV ONLY: Reduce the lease renewal interval to speed up registration
+#  2. Define URL of registration server (defaultZone)
 eureka:
-  instance:
-     leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
 
-# HTTP Server
-server:
-  port: 3333   # HTTP (Tomcat) port
+# Enable actuator access without security checks - DEVELOPEMENT ONLY
+# management.security.enabled: false   Spring Boot 1.5 property
+management.endpoints.web.exposure.include: '*'
+  
