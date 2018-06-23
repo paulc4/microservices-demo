@@ -1,6 +1,6 @@
 # microservices-demo
 
-Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.
+Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.  **WARNING:** Only maven build has been updated.  Gradle build still to be done.
 
 ![Demo System Schematic](https://github.com/paulc4/microservices-demo/blob/master/mini-system.jpg)
 
@@ -12,7 +12,7 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 Current version (June 2018) v2.0.0 corresponds to Spring Boot 2 and Finchly release train.
 
-**WARNING:** Only maven build has been updated.  Gradle buid still to be done.
+**WARNING:** Only maven build has been updated.  Gradle build still to be done.
 
 Previous versions have been tagged and can be accessed using the `Branch` button above or using `git checkout <version>` - for example `git checkout v1.2.0`.
 
