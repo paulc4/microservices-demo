@@ -41,7 +41,7 @@ For convenience we are building a 'fat' executble jar whose start-class (main me
 java -jar target/microservices-demo-2.0.0.RELEASE.jar registration|accounts|web
 ```
 
-### Priocedure
+### Procedure
 
 To run the microservices system from the command-line, open three CMD windows (Windows) or three Terminal windows (MacOS, Linux) and arrange so you can view them conveniently.
 
