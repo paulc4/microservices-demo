@@ -26,11 +26,13 @@ server.port: 3333   # HTTP (Tomcat) port
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
+      defaultZone: http://${registration.server.hostname}:1111/eureka/
   instance:
     leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
 
 # Enable actuator access without security checks - DEVELOPEMENT ONLY
-# management.security.enabled: false   Spring Boot 1.5 property
+# Spring Boot 1.5
+# management.security.enabled: false
+# Spring Boot 2.x
 management.endpoints.web.exposure.include: '*'
   
