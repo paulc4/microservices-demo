@@ -12,8 +12,6 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 Current version (June 2018) v2.0.0 corresponds to Spring Boot 2 and Finchly release train.
 
-**WARNING:** Only maven build has been updated.  Gradle build still to be done.
-
 Previous versions have been tagged and can be accessed using the `Branch` button above or using `git checkout <version>` - for example `git checkout v1.2.0`.
 
 Tagged versions are:
@@ -41,7 +39,7 @@ For convenience we are building a 'fat' executble jar whose start-class (main me
 java -jar target/microservices-demo-2.0.0.RELEASE.jar registration|accounts|web
 ```
 
-### Priocedure
+### Procedure
 
 To run the microservices system from the command-line, open three CMD windows (Windows) or three Terminal windows (MacOS, Linux) and arrange so you can view them conveniently.
 
@@ -62,4 +60,8 @@ For a list of valid accounts refer to the [data.sql](https://github.com/paulc4/m
      * `java -jar target/microservices-demo-2.0.0.RELEASE.jar accounts 2223`
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
+
+Using Docker
+
+This application can also be run using 3 docker containers. See [here](docker/use-docker.md).
 
