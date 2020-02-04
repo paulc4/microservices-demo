@@ -1,5 +1,7 @@
 package io.pivotal.microservices.services;
 
+import java.net.InetAddress;
+
 import io.pivotal.microservices.services.accounts.AccountsServer;
 import io.pivotal.microservices.services.registration.RegistrationServer;
 import io.pivotal.microservices.services.web.WebServer;
@@ -12,41 +14,76 @@ import io.pivotal.microservices.services.web.WebServer;
  */
 public class Main {
 
-	public static void main(String[] args) {
+    public static final String NO_VALUE = "NO-VALUE";
 
-		String serverName = "NO-VALUE";
+    public static void main(String[] args) {
 
-		switch (args.length) {
-		case 2:
-			// Optionally set the HTTP port to listen on, overrides
-			// value in the <server-name>-server.yml file
-			System.setProperty("server.port", args[1]);
-			// Fall through into ..
+        String serverName = NO_VALUE;
+        String port = null;
 
-		case 1:
-			serverName = args[0].toLowerCase();
-			break;
+        // Eureka server assumed to be on localhost
+        System.setProperty("registration.server.hostname", "localhost");
 
-		default:
-			usage();
-			return;
-		}
+        // Look for server name and (optional) port property
+        // Ignore any -- arguments intended for Spring Boot
+        for (String arg : args) {
+            if (arg.startsWith("--"))
+                continue;
 
-		if (serverName.equals("registration") || serverName.equals("reg")) {
-			RegistrationServer.main(args);
-		} else if (serverName.equals("accounts")) {
-			AccountsServer.main(args);
-		} else if (serverName.equals("web")) {
-			WebServer.main(args);
-		} else {
-			System.out.println("Unknown server type: " + serverName);
-			usage();
-		}
-	}
+            if (serverName.equals(NO_VALUE))
+                serverName = arg;
+            else if (port == null)
+                port = arg;
+            else {
+                System.out.println("Unexpected argument: " + arg);
+                usage();
+                return;
+            }
+        }
 
-	protected static void usage() {
-		System.out.println("Usage: java -jar ... <server-name> [server-port]");
-		System.out.println(
-				"     where server-name is 'reg', 'registration', " + "'accounts' or 'web' and server-port > 1024");
-	}
+        // No server name supplied, print usage and exit
+        if (serverName == NO_VALUE) {
+            usage();
+            return;
+        }
+
+        // Override port, if specified
+        if (port != null)
+            System.setProperty("server.port", port);
+
+        // Get IP address, useful when running in containers
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            System.out.println("Running on IP: " + inetAddress.getHostAddress());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Determine which role this application will run as
+        if (serverName.equals("registration") || serverName.equals("reg")) {
+            RegistrationServer.main(args);
+        } else if (serverName.equals("accounts")) {
+            AccountsServer.main(args);
+        } else if (serverName.equals("web")) {
+            WebServer.main(args);
+        } else {
+            // Unrecognized server type - print usage and exit
+            System.out.println("Unknown server type: " + serverName);
+            usage();
+        }
+    }
+
+    /**
+     * Print application usage information to console.
+     */
+    protected static void usage() {
+        System.out.println();
+        System.out.println("Usage: java -jar ... <server-name> [server-port]");
+        System.out.println("     where");
+        System.out.println("       server-name is 'reg', 'registration', " + "'accounts' or 'web'");
+        System.out.println("       server-port > 1024");
+        System.out.println(
+                "     optionally specify --registration.server.hostname=<IP-address> if it is not running on localhost,");
+        System.out.println();
+    }
 }
