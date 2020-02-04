@@ -1,6 +1,6 @@
 # Run Using Docker
 
-We are going to run the small Accounts microservice application available at https://github.com/paulc4/microservices-demo.
+We are going to run the Accounts Microservice application available at https://github.com/paulc4/microservices-demo using three docker containers, one for the Eureka registration server and one for each microservice.
 
 ## Build the Image
 
@@ -26,7 +26,7 @@ We are going to run the small Accounts microservice application available at htt
     * Copy the demo jar into the container and rename it to `app.jar` to save typing later.  By default, `app.jar` will be copied into the root of the container file system.
     * Expose ports 1111, 2222 and 3333.
 
-1. To build the container (not the `.` at the end, indicating to use the current directory as its working directory):
+1. To build the container (**note** the `.` at the end, indicating to use the current directory as its working directory):
 
     ```sh
     docker build -t paulc4/microservice .
