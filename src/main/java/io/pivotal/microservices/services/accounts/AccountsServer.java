@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 
@@ -18,11 +18,11 @@ import io.pivotal.microservices.accounts.AccountsConfiguration;
  * {@link AccountsConfiguration}. This is a deliberate separation of concerns.
  * <p>
  * This class declares no beans and current package contains no components for
- * ComponentScan to find. No point using <tt>@SptingBootApplication</tt>.
+ * ComponentScan to find.
  * 
  * @author Paul Chapman
  */
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableDiscoveryClient
 @Import(AccountsConfiguration.class)
 public class AccountsServer {
