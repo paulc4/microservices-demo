@@ -1,19 +1,12 @@
+plugins {
+	id 'org.springframework.boot' version '2.0.1.RELEASE'
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
-apply plugin: 'spring-boot'
-
-
-buildscript {
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:" + springBootVersion)
-    }
-
-    repositories {
-	mavenCentral()
-    }
-}
+apply plugin: 'io.spring.dependency-management'
 
 assemble {
     manifest {
@@ -29,26 +22,29 @@ assemble {
     }
 }
 
+group = 'org.springframework.samples.service.service'
+version = '2.0.0.RELEASE'
+
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
-    compile 'org.springframework.boot:spring-boot-starter:' + springBootVersion,
-            'org.springframework.boot:spring-boot-starter-web:' + springBootVersion,
-            'org.springframework.boot:spring-boot-starter-thymeleaf:' + springBootVersion,
-            'org.springframework.data:spring-data-commons:' + springDataCommonsVersion,
-            'org.springframework.boot:spring-boot-starter-test:' + springBootVersion,
-            'org.springframework.boot:spring-boot-starter-data-jpa:' + springBootVersion,
-            'org.hsqldb:hsqldb:' + hsqldbVersion,
-            'org.springframework.cloud:spring-cloud-starter:' + springCloudStarterVersion,
-            'org.springframework.cloud:spring-cloud-starter-eureka-server:' + springCloudStarterEurekaServerVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+    compile group: 'org.springframework.data', name: 'spring-data-commons'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    compile group: 'org.hsqldb', name: 'hsqldb'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-server', version: '2.0.1.RELEASE'
 
     testCompile 'junit:junit:4.+'
 }
 
 springBoot {
-    mainClass = "io.pivotal.microservices.services.Main"
+    mainClassName = "io.pivotal.microservices.services.Main"
 }
 
