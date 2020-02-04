@@ -44,7 +44,7 @@ java -jar target/microservices-demo-2.0.0.RELEASE.jar registration|accounts|web
 To run the microservices system from the command-line, open three CMD windows (Windows) or three Terminal windows (MacOS, Linux) and arrange so you can view them conveniently.
 
  1. In each window, change to the directory where you cloned the demo.
- 1. In the first window, build the application using either `mvn clean package` or `gradle clean assemble`.  Either way the
+ 1. In the first window, build the application using either `./mvnw clean package` or `./gradlew clean assemble`.  Either way the
     generated file will be `target/microservices-demo-2.0.0.RELEASE.jar` (even if you used gradle).
  1. In the same window run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar registration`
  1. Switch to the second window and run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar accounts`
