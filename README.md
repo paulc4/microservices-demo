@@ -61,7 +61,7 @@ For a list of valid accounts refer to the [data.sql](https://github.com/paulc4/m
  1. Allow it to register itself
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
-Using Docker
+## Using Docker
 
 This application can also be run using 3 docker containers. See [here](use-docker.md).
 
