@@ -21,6 +21,8 @@ Tagged versions are:
 * v1.1.0 corresponds to Spring Cloud release-train Brixton
 * v1.0.0 corresponds to Spring Cloud release-train Angel.SR6
 
+If running with Java 11 or later, you need to upgrade the build to include additional dependencies. Refer to https://github.com/paulc4/microservices-demo/issues/32 for details.
+
 ## Using an IDE
 
 You can run the system in your IDE by running the three server classes in order: _RegistrationService_, _AccountsService_ and _WebService_.  Each is a Spring Boot application using embedded Tomcat.  In Spring Tool Suite use `Run As ... Spring Boot App` otherwise just run each as a Java application - each has a static `main()` entry point.
