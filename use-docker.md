@@ -57,28 +57,28 @@ We will run the container three times, each time running the Java application in
     ```
 
     The `-d` (detach) flag is missing so all output will stream to the console so we can see what is happening.
+    
+    As soon as the application starts up, it displays its IP address. Remember this for later.
 
 1. In your browser, go to http://localhost:1111 and you should see the Eureka dashboard. There are no instances registered.
 
-1. _In a new CMD/Terminal window_, use `ifconfig` or `ipconfig` to determine the IP address of your machine.  Remember it you need it in the next step.
-
-1. Run a second container for the accounts microservice. This holds a database if 21 available accounts (stored using the H2 in-memory RDBMS database)
+1. _In a new CMD/Terminal window_, run a second container for the accounts microservice. This holds a database if 21 available accounts (stored using the H2 in-memory RDBMS database)
 
     ```sh
-    docker run --name accounts --hostname accounts --network accounts-net -p 2222:2222 paulc4/microservice java -jar app.jar accounts  --registration.server.hostname=<your ip addr>
+    docker run --name accounts --hostname accounts --network accounts-net -p 2222:2222 paulc4/microservice java -jar app.jar accounts  --registration.server.hostname=<reg server ip addr>
     ```
 
-    Replace `<your ip addr>` with the IP address you determined earlier.
+    Replace `<eg server ip addr>` with the IP address you determined earlier.
 
 1. Return to the Eureka Dashboard in your browser and refresh the screen.  You should see that `ACCOUNTS-SERVICE` is now registered.
 
 1. _In a new CMD/Terminal window_, run a third container for the accounts web-service. This is a web-application for viewing account information by requesting account data from the accounts microservice.
 
     ```sh
-    docker run --name web --hostname web --network accounts-net -p 3333:3333 paulc4/microservice java -jar app.jar web --registration.server.hostname=<your ip addr>
+    docker run --name web --hostname web --network accounts-net -p 3333:3333 paulc4/microservice java -jar app.jar web --registration.server.hostname=<eg server ip addr>
     ```
 
-    Replace `<your ip addr>` with the IP address you determined earlier.
+    Replace `<eg server ip addr>` with the IP address you determined earlier.
 
 1. Return to the Eureka Dashboard in your browser and refresh the screen.  You should see that `ACCOUNTS-SERVICE` and `WEB-SERVICE` are now registered.
 
