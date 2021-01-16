@@ -7,20 +7,34 @@
 <body>
 	<h1>Account Details</h1>
 
-	<dl class="dl-horizontal">
-		<dt>Number</dt>
-		<dd th:text="${account.number}">number</dd>
-		<dt>Owner</dt>
-		<dd th:text="${account.owner}">number</dd>
-		<dt>Balance</dt>
-		<dd th:text="${account.balance}">number</dd>
-	</dl>
+	<div th:if="not ${account}">
+		<div class="m-3 alert alert-warning">
+			Unable to find account '<span th:text="${number}">number</span>'
+		</div>
+		<div style="height: 2cm">&nbsp;</div>
+	</div>
 
-	<div style="height: 2cm">&nbsp;</div>
+	<div th:if="${account}" class="container">
+		<dl class="row">
+			<dt class="col-1">Number</dt>
+			<dd th:text="${account.number}">number</dd>
+		</dl>
+		<dl class="row">
+			<dt class="col-1">Owner</dt>
+			<dd th:text="${account.owner}">number</dd>
+	    </dl>
+	    <dl class="row">
+			<dt class="col-1">Balance</dt>
+			<dd th:text="${account.balance}">number</dd>
+		</dl>
+	</div>
 
-	<div style="text-align: right">
-		Options: <a th:href="@{/}">Home</a> | <a
-			th:href="@{/accounts/search}">Account Search</a>
+	<div class="row" style="height: 2cm">&nbsp;</div>
+
+	<div class="row" style="text-align: right">
+	    <span class="col-12">
+		Options: &nbsp; <a th:href="@{/}">Home</a> | <a
+			th:href="@{/accounts/search}">Account Search</a></span>
 	</div>
 
 	<div th:replace="footer :: copy"></div>

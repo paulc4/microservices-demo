@@ -10,52 +10,39 @@
 	<p>Enter an account number or search for an account owner
 		containing given specified text:</p>
 
-	<form action="#" th:object="${searchCriteria}" method="GET"
-		th:action="@{/accounts/dosearch}" class="form-horizontal">
+	<form class="bg-gray" action="#" th:object="${searchCriteria}" method="GET"
+		th:action="@{/accounts/dosearch}">
 
-		<!-- Account Number field -->
-		<div class="form-group">
-			<label for="number" class="control-label col-xs-2">Account
-				Number</label>
-			<div class="col-xs-2">
+	    <div class="row">
+			<!-- Account Number field -->
+			<div class="form-group col-4">
+				<label for="number" class="control-label col-xs-2">Account Number</label>
 				<input type="text" class="form-control" id="number"
-					th:field="*{accountNumber}" placeholder="Enter account number"
-					style="width: 10em;" />
+					th:field="*{accountNumber}" placeholder="Enter account number" style="width: 15em;" />
+				<small class="form-text text-muted">Enter a valid 9 digit number</small>
 			</div>
-			<div class="col-xs-8">Enter a valid 9 digit number</div>
-		</div>
-
-		<!-- Account Number errors (if any) -->
-		<div class="form-group">
-			<div class="control-label col-xs-2">&nbsp;</div>
-			<div class="col-xs-2">&nbsp;</div>
-			<div class="col-xs-8">
+	
+			<!-- Account Number errors (if any) -->
+			<div class="col-5 p-4">
 				<span th:if="${#fields.hasErrors('accountNumber')}"
-					style="color: red; font-size: smaller" th:errors="*{accountNumber}">Incorrect
-					data</span>
+					style="color: red; font-size: smaller" th:errors="*{accountNumber}">Incorrect data</span>
 			</div>
-		</div>
+	    </div>
 
-		<!-- Owner name field -->
-		<div class="form-group">
-			<label for="search" class="control-label col-xs-2">Owner
-				Search</label>
-			<div class="col-xs-2">
+        <div class="row">
+			<!-- Owner name field -->
+			<div class="form-group col-4">
+				<label for="search" class="control-label col-xs-2">Account Owner Search</label>
 				<input type="text" class="form-control" id="search"
-					th:field="*{searchText}" placeholder="Text from owner name"
-					style="width: 10em;" />
+						th:field="*{searchText}" placeholder="Enter owner name"
+						style="width: 15em;" pattern="[a-zA-Z]+"/>
+				<small class="form-text text-muted">Case-insensitive letters, supports part name matching</small>
 			</div>
-			<div class="col-xs-8">Case-insensitive, supports part name
-				matching</div>
-		</div>
-
-		<!-- Owner name errors (if any) -->
-		<div class="form-group">
-			<div class="control-label col-xs-2">&nbsp;</div>
-			<div class="col-xs-2">&nbsp;</div>
-			<div class="col-xs-8">
+	
+			<!-- Owner name errors (if any) -->
+			<div class="col-5 p-4">
 				<span th:if="${#fields.hasErrors('searchText')}"
-					style="color: red; font-size: smaller" th:errors="*{searchText}"></span>
+				      style="color: red; font-size: smaller" th:errors="*{searchText}"></span>
 			</div>
 		</div>
 
