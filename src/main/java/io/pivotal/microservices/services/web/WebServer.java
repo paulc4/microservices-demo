@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
+import io.pivotal.microservices.services.registration.RegistrationServer;
+
 /**
  * Accounts web-server. Works as a microservice client, fetching data from the
  * Account-Service. Uses the Discovery Server (Eureka) to find the microservice.
@@ -34,6 +36,10 @@ public class WebServer {
      * @param args Program arguments - ignored.
      */
     public static void main(String[] args) {
+        // Default to registration server on localhost
+        if (System.getProperty(RegistrationServer.REGISTRATION_SERVER_HOSTNAME) == null)
+            System.setProperty(RegistrationServer.REGISTRATION_SERVER_HOSTNAME, "localhost");
+
         // Tell server to look for web-server.properties or web-server.yml
         System.setProperty("spring.config.name", "web-server");
         SpringApplication.run(WebServer.class, args);

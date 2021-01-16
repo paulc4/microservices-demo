@@ -3,8 +3,8 @@ package io.pivotal.microservices.accounts;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 
@@ -30,9 +30,9 @@ public abstract class AbstractAccountControllerTests {
 		Logger.getGlobal().info("Start validAccountNumber test");
 		Account account = accountController.byNumber(ACCOUNT_1);
 
-		Assert.assertNotNull(account);
-		Assert.assertEquals(ACCOUNT_1, account.getNumber());
-		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
+		Assertions.assertNotNull(account);
+		Assertions.assertEquals(ACCOUNT_1, account.getNumber());
+		Assertions.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
 
@@ -42,12 +42,12 @@ public abstract class AbstractAccountControllerTests {
 		List<Account> accounts = accountController.byOwner(ACCOUNT_1_NAME);
 		Logger.getGlobal().info("In validAccount test");
 
-		Assert.assertNotNull(accounts);
-		Assert.assertEquals(1, accounts.size());
+		Assertions.assertNotNull(accounts);
+		Assertions.assertEquals(1, accounts.size());
 
 		Account account = accounts.get(0);
-		Assert.assertEquals(ACCOUNT_1, account.getNumber());
-		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
+		Assertions.assertEquals(ACCOUNT_1, account.getNumber());
+		Assertions.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
 
@@ -57,12 +57,12 @@ public abstract class AbstractAccountControllerTests {
 		List<Account> accounts = accountController.byOwner("Keri");
 		Logger.getGlobal().info("In validAccount test");
 
-		Assert.assertNotNull(accounts);
-		Assert.assertEquals(1, accounts.size());
+		Assertions.assertNotNull(accounts);
+		Assertions.assertEquals(1, accounts.size());
 
 		Account account = accounts.get(0);
-		Assert.assertEquals(ACCOUNT_1, account.getNumber());
-		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
+		Assertions.assertEquals(ACCOUNT_1, account.getNumber());
+		Assertions.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
 
@@ -72,12 +72,12 @@ public abstract class AbstractAccountControllerTests {
 		List<Account> accounts = accountController.byOwner("keri");
 		Logger.getGlobal().info("In validAccount test");
 
-		Assert.assertNotNull(accounts);
-		Assert.assertEquals(1, accounts.size());
+		Assertions.assertNotNull(accounts);
+		Assertions.assertEquals(1, accounts.size());
 
 		Account account = accounts.get(0);
-		Assert.assertEquals(ACCOUNT_1, account.getNumber());
-		Assert.assertEquals(ACCOUNT_1_NAME, account.getOwner());
+		Assertions.assertEquals(ACCOUNT_1, account.getNumber());
+		Assertions.assertEquals(ACCOUNT_1_NAME, account.getOwner());
 		Logger.getGlobal().info("End validAccount test");
 	}
 
@@ -85,7 +85,7 @@ public abstract class AbstractAccountControllerTests {
 	public void invalidAccountNumber() {
 		try {
 			accountController.byNumber("10101010");
-			Assert.fail("Expected an AccountNotFoundException");
+			Assertions.fail("Expected an AccountNotFoundException");
 		} catch (AccountNotFoundException e) {
 			// Worked!
 		}
@@ -95,7 +95,7 @@ public abstract class AbstractAccountControllerTests {
 	public void invalidAccountName() {
 		try {
 			accountController.byOwner("Fred Smith");
-			Assert.fail("Expected an AccountNotFoundException");
+			Assertions.fail("Expected an AccountNotFoundException");
 		} catch (AccountNotFoundException e) {
 			// Worked!
 		}

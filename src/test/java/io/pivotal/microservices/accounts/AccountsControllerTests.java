@@ -3,7 +3,8 @@ package io.pivotal.microservices.accounts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+
 
 public class AccountsControllerTests extends AbstractAccountControllerTests {
 
@@ -38,7 +39,7 @@ public class AccountsControllerTests extends AbstractAccountControllerTests {
 
 	protected TestAccountRepository testRepo = new TestAccountRepository();
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		accountController = new AccountsController(testRepo);
 	}

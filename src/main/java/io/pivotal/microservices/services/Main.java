@@ -22,7 +22,7 @@ public class Main {
         String port = null;
 
         // Eureka server assumed to be on localhost
-        System.setProperty("registration.server.hostname", "localhost");
+        System.setProperty(RegistrationServer.REGISTRATION_SERVER_HOSTNAME, "localhost");
 
         // Look for server name and (optional) port property
         // Ignore any -- arguments intended for Spring Boot

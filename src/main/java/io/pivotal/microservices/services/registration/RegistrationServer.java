@@ -16,6 +16,8 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 public class RegistrationServer {
 
+    public static final String REGISTRATION_SERVER_HOSTNAME = "registration.server.hostname";
+
     /**
      * Run the application using Spring Boot and an embedded servlet engine.
      * 

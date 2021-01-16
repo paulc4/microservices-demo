@@ -23,7 +23,7 @@ eureka:
     serviceUrl:
       defaultZone: http://${registration.server.hostname}:1111/eureka/
   instance:
-    leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
+    leaseRenewalIntervalInSeconds: 10   # DO NOT DO THIS IN PRODUCTION
 
 #  3. If using the Angel release-train ONLY, give the process a unique instance id 
 #     so that multiple instances can register when running on SAME host.  This is
