@@ -37,3 +37,7 @@ footer {
 	color:#6DB33F;   /* Spring Green */
 	font-style: italic;
 }
+
+.bg-dark {
+	background-color: #333333;
+}
