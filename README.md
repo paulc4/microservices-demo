@@ -16,6 +16,7 @@ Previous versions have been tagged and can be accessed using the `Branch` button
 
 Tagged versions are:
 
+* v2.1.0 - Spring Boot 2.4.2 and Spring Cloud release-train 2020.0.0 (Jan 2021)
 * v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchley
 * v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware
 * v1.1.0 corresponds to Spring Cloud release-train Brixton
@@ -25,7 +26,7 @@ If running with Java 11 or later, you need to upgrade the build to include addit
 
 ## Using an IDE
 
-You can run the system in your IDE by running the three server classes in order: _RegistrationService_, _AccountsService_ and _WebService_.  Each is a Spring Boot application using embedded Tomcat.  In Spring Tool Suite use `Run As ... Spring Boot App` otherwise just run each as a Java application - each has a static `main()` entry point.
+You can run the system in your IDE by running the three server classes in order: _RegistrationService_, _AccountsService_ and _WebService_.  Each is a Spring Boot application using embedded Tomcat.  If using Spring Tools use `Run As ... Spring Boot App` otherwise just run each as a Java application - each has a static `main()` entry point.
 
 As discussed in the Blog, open the Eureka dashboard [http://localhost:1111](http://localhost:1111) in your browser to see that the `ACCOUNTS-SERVICE` and `WEB-SERVICE` applications have registered.  Next open the Demo Home Page [http://localhost:3333](http://localhost:3333) in and click one of the demo links.
 
