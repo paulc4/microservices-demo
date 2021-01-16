@@ -17,10 +17,10 @@ Previous versions have been tagged and can be accessed using the `Branch` button
 Tagged versions are:
 
 * v2.1.0 - Spring Boot 2.4.2 and Spring Cloud release-train 2020.0.0 (Jan 2021)
-* v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchley
-* v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware
-* v1.1.0 corresponds to Spring Cloud release-train Brixton
-* v1.0.0 corresponds to Spring Cloud release-train Angel.SR6
+* v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchley (Feb 2020)
+* v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware (Apr 2018)
+* v1.1.0 corresponds to Spring Cloud release-train Brixton (Jan 2018)
+* v1.0.0 corresponds to Spring Cloud release-train Angel.SR6 (May 2016)
 
 If running with Java 11 or later, you need to upgrade the build to include additional dependencies. Refer to https://github.com/paulc4/microservices-demo/issues/32 for details.
 
