@@ -10,12 +10,13 @@ _Note for gradle users:_ to make the intructions below build-tool independent, t
 
 ## Versions
 
-Current version (Jan 2021) v2.1.0 corresponds to Spring Boot 2.4.2 and Spring Cloud 2020.0.0 release train.
+Current version (Jan 2021) v2.1.1 corresponds to Spring Boot 2.4.2 and Spring Cloud 2020.0.0 release train.
 
 Previous versions have been tagged and can be accessed using the `Branch` button above or using `git checkout <version>` - for example `git checkout v1.2.0`.
 
 Tagged versions are:
 
+* v2.1.1 - Spring Boot 2.4.2, Spring Cloud release-train 2020.0.0 and overdue update to Bootstrap 4 (Jan 2021)
 * v2.1.0 - Spring Boot 2.4.2 and Spring Cloud release-train 2020.0.0 (Jan 2021)
 * v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchley (Feb 2020)
 * v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware (Apr 2018)
