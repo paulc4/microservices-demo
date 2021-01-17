@@ -1,6 +1,7 @@
 package io.pivotal.microservices.accounts;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -60,7 +61,7 @@ public class AccountsConfiguration {
 
 		for (Map<String, Object> item : accounts) {
 			String number = (String) item.get("number");
-			BigDecimal balance = new BigDecimal(rand.nextInt(10000000) / 100.0).setScale(2, BigDecimal.ROUND_HALF_UP);
+			BigDecimal balance = new BigDecimal(rand.nextInt(10000000) / 100.0).setScale(2, RoundingMode.HALF_UP);
 			jdbcTemplate.update("UPDATE T_ACCOUNT SET balance = ? WHERE number = ?", balance, number);
 		}
 

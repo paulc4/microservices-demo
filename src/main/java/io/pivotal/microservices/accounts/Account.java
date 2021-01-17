@@ -2,6 +2,7 @@ package io.pivotal.microservices.accounts;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -90,7 +91,7 @@ public class Account implements Serializable {
 	}
 
 	public BigDecimal getBalance() {
-		return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		return balance.setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 	public void withdraw(BigDecimal amount) {

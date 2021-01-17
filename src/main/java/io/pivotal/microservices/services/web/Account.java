@@ -1,6 +1,7 @@
 package io.pivotal.microservices.services.web;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -55,12 +56,12 @@ public class Account {
 	}
 
 	public BigDecimal getBalance() {
-		return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		return balance.setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 	protected void setBalance(BigDecimal value) {
 		balance = value;
-		balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		balance.setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 	@Override
