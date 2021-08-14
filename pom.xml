@@ -1,96 +1,566 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.samples.service.service</groupId>
-    <artifactId>microservices-demo</artifactId>
-    <version>2.1.0.RELEASE</version>
-    <packaging>jar</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.pivotal.microservices</groupId>
+	<artifactId>microservices-demo</artifactId>
+	<version>2.2.0.RELEASE</version>
+	<name>microservices-demo</name>
+	<packaging>jar</packaging>
 
-    <properties>
-        <!-- Stand-alone RESTFul application for testing only -->
-        <start-class>io.pivotal.microservices.services.Main</start-class>
-    </properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.3</version>
+		<relativePath />
+	</parent>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.2</version>
-    </parent>
+	<contributors>
+        <contributor>
+			<name>Paul Chapman</name>
+			<url>https://uk.linkedin.com/in/paulchapman</url>
+			<roles>
+				<role>author</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>T.N.Silverman</name>
+			<email>tnsilver@gmail.com</email>
+			<roles>
+				<role>author</role>
+			</roles>
+		</contributor>
+	</contributors>
 
-    <dependencies>
-        <dependency>
-            <!-- Setup Spring Boot -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<start-class>io.pivotal.microservices.services.Main</start-class>
+		<java.version>16</java.version>
+		<!-- compiler settings -->
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+		<!-- versions -->
+		<spring-cloud-dependencies.version>2020.0.3</spring-cloud-dependencies.version>
+		<jersey-apache-client4.version>1.19.4</jersey-apache-client4.version>
+		<!-- maven plugins -->
+		<maven.compiler.version>3.8.1</maven.compiler.version>
+		<maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
+		<maven.site.plugin.version>3.9.1</maven.site.plugin.version>
+		<maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
+		<maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+		<maven.failsafe.plugin.version>3.0.0-M5</maven.failsafe.plugin.version>
+		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+		<jacoco.maven.plugin.version>0.8.7</jacoco.maven.plugin.version>
+		<maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+		<!-- jib -->
+		<jib.maven.plugin.version>3.1.3</jib.maven.plugin.version>
+		<!-- Misc -->
+		<argLine>-Duser.timezone=Asia/Jersualem --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED</argLine>
+		<spring.profiles.active>default</spring.profiles.active>
+		<start-class>io.pivotal.microservices.services.Main</start-class>
+		<packaging.layers>true</packaging.layers>
+		<spring.profiles.active>dev</spring.profiles.active>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssZ</maven.build.timestamp.format>
+		<!-- DB Vendor (values are 'h2' or 'mysql') -->
+		<db.vendor.name>h2</db.vendor.name>
+	</properties>
 
-        <dependency>
-            <!-- Setup Spring MVC & REST, use Embedded Tomcat -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+	<dependencies>
 
-        <dependency>
-            <!-- Setup Spring Data common components -->
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
+		<!-- BOOT -->
 
-        <dependency>
-            <!-- Testing starter -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
+		<dependency>
+			<!-- Setup Spring Boot -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
 
-        <dependency>
-            <!-- Setup Spring Data JPA Repository support -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+		<!-- ACTUATOR -->
 
-        <dependency>
-            <!-- In-memory database for testing/demos -->
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
-        <dependency>
-            <!-- Spring Cloud starter -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter</artifactId>
-        </dependency>
+		<!-- AOP -->
 
-        <dependency>
-            <!-- Eureka service registration - CHANGED -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 
-    </dependencies>
+		<!-- CLOUD / EUREKA -->
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2020.0.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+		<dependency>
+			<!-- Spring Cloud starter -->
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+		<dependency>
+			<!-- Eureka service registration -->
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+
+		<!-- EUREKA client not used in this app -->
+
+        <!--
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-apache-client4</artifactId>
+			<version>${jersey-apache-client4.version}</version>
+		</dependency>
+		 -->
+
+		<!-- SECURITY -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- WEB -->
+
+		<dependency>
+			<!-- Setup Spring MVC & REST, use Embedded Tomcat -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+		</dependency>
+
+		<!-- REST -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+		<!-- DATA -->
+
+		<dependency>
+			<!-- Setup Spring Data common components -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+
+		<dependency>
+			<!-- Setup Spring Data JPA Repository support -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Persistence -->
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+
+		<!-- LOGGING -->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- UTILS -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- for the REST Template with basic auth -->
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+
+        <!-- for manual Auth header construction -->
+
+		<dependency>
+		   <groupId>commons-codec</groupId>
+		   <artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<!-- Caffeine Cache -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+		</dependency>
+
+		<!-- TEST -->
+
+		<dependency>
+			<!-- Testing starter -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--WEB TEST -->
+
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+	   <finalName>${project.artifactId}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>static/*.png</exclude>
+					<exclude>static/*.ico</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>static/*.png</include>
+					<include>static/*.ico</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/test/resources</directory>
+				<targetPath>${project.build.directory}/test-classes</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven.jar.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven.failsafe.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${maven.surefire.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>${maven.pmd.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco.maven.plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>com.google.cloud.tools</groupId>
+					<artifactId>jib-maven-plugin</artifactId>
+					<version>${jib.maven.plugin.version}</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
+							<failIfNoTests>false</failIfNoTests>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<argLine>@{argLine}</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<showSuccess>true</showSuccess>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-reports</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-it-reports</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>failsafe-report-only</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven.site.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>generate-test-reports-styles</id>
+						<phase>test</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<configuration>
+							<generateReports>false</generateReports>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>coverage-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>**/*Server.*</exclude>
+								<exclude>**/Main.*</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<haltOnFailure>false</haltOnFailure>
+							<excludes>
+								<exclude>**/*Server.*</exclude>
+								<exclude>**/Main.*</exclude>
+							</excludes>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>INSTRUCTION</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.60</minimum>
+										</limit>
+										<limit>
+											<counter>CLASS</counter>
+											<value>MISSEDCOUNT</value>
+											<maximum>0</maximum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>${start-class}</mainClass>
+					<jvmArguments>@{argLine}</jvmArguments>
+					<layers>
+						<enabled>${packaging.layers}</enabled>
+					</layers>
+				</configuration>
+				<executions>
+					<execution>
+						<id>repackage</id>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Some relevant docker commands -->
+			<!-- list containers: docker ps -a -->
+			<!-- remove a container: docker container rm [container-id] -f -->
+			<!-- list images: docker images -->
+			<!-- remove image: docker image rm [imaged-id] -f -->
+
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+				    <from>
+				    	<image>openjdk:16.0.1-jdk-slim@sha256:e20175812fb1b559a3a98d07515c42c030531d9b06d65821d69968e048c752a1</image>
+				    </from>
+					<to>
+						<!-- <image>registry.hub.docker.com/tnsilver/${project.artifactId}</image> -->
+						<image>tnsilver/${project.artifactId}</image>
+					</to>
+					<container>
+					    <creationTime>${build.timestamp}</creationTime>
+						<ports>
+						    <port>8761</port>
+						    <port>7070</port>
+							<port>8080</port>
+						</ports>
+					</container>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
+
 </project>

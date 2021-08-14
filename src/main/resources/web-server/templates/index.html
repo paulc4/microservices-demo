@@ -1,6 +1,5 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <head th:replace="header :: copy"></head>
 
@@ -9,40 +8,39 @@
 	<h1>Microservices Demo - Web Server</h1>
 	<h3>Overview</h3>
 	<ul>
-		<li>Demo defines a simple web-application for accessing accounts
-			data.</li>
-		<li>All the account information is fetched via a RESTful
-			interface to a Accounts microservice.</li>
+		<li>Demo defines a simple web-application for accessing accounts data.</li>
+		<li>All the account information is fetched via a RESTful interface to a Accounts microservice.</li>
 	</ul>
 
 	<h3>The Demo</h3>
 
 	<ul class="openlist">
-		<li>Eureka Dashboard: <a
-			href="http://localhost:1111">http://localhost:1111</a></li>
-		<li>Check applications registered: <a
-			href="http://localhost:1111/eureka/apps/">http://localhost:1111/eureka/apps/</a></li>
-		<li>Fetch account #123456789: <a th:href="@{/accounts/123456789}">/accounts/123456789</a></li>
-
+	    <li>h2-console: <a href="http://localhost:7070/h2-console/" target="_blank">http://localhost:7070/h2-console/</a></li>
+		<li>Eureka Dashboard: <a href="http://localhost:8761" th:href="@{http://localhost:8761}">http://localhost:8761</a>&nbsp;(requires login - use <code>admin/password</code>)</li>
+		<li>Check applications registered: <a href="http://localhost:8761/eureka/apps/" target="_blank">http://localhost:8761/eureka/apps/</a></li>
+		<li>Fetch account #123456789: <a th:href="@{/accounts/number/123456789}">/accounts/number/123456789</a></li>
 		<li>Fetch by name: <a th:href="@{/accounts/owner/Keri}">/accounts/owner/Keri</a></li>
-
+		<li>Fetch by id: <a th:href="@{/accounts/id/1}">/accounts/id/1</a></li>
 		<li>Account <a th:href="@{/accounts/search}">Search</a></li>
+		<li>
+		    <p>In case the web-service had just reloaded you may want to try to <a th:href="@{/purge}">evict the accounts cache</a> if
+		       you're not seeing any results. You can see a status 200 in the WebServer console window when the web-service discovery
+		       client receives instance registry info from the Eureka server and can connect to the accounts server.
+		    </p>
+		</li>
 	</ul>
 
 	<h3>Spring Boot URLs</h3>
-	<p>For those interested, Spring Boot provides RESTful URLs for
-		interrogating your application (they return JSON format data):</p>
+	<p>For those interested, Spring Boot provides RESTful URLs for interrogating your application (they return JSON format data):</p>
 
 	<ul>
-		<li><a th:href="@{/actuator/beans}">The beans</a></li>
-		<li><a th:href="@{/actuator/env}">The environment</a></li>
-		<li><a th:href="@{/actuator/health}">Application health</a></li>
-		<li><a th:href="@{/actuator/mappings}">URL Mappings</a> - including
-		     the /account mappings</li>
-		<li><a th:href="@{/actuator/metrics}">Application metrics</a> - add any 
-		     metric name to the end of this URL, for example 
-		     <a th:href="@{/actuator/metrics/http.server.requests}">/actuator/metrics/http.server.requests</a></li>
-		<li><a th:href="@{/actuator}">List of actuator endpoints</a></li>
+		<li><a th:href="@{/actuator/beans}" target="_blank">The beans</a></li>
+		<li><a th:href="@{/actuator/env}" target="_blank">The environment</a></li>
+		<li><a th:href="@{/actuator/health}" target="_blank">Application health</a></li>
+		<li><a th:href="@{/actuator/mappings}" target="_blank">URL Mappings</a> - including the /account mappings</li>
+		<li><a th:href="@{/actuator/metrics}" target="_blank">Application metrics</a> - add any metric name to the end of this URL, for example
+		     <a th:href="@{/actuator/metrics/http.server.requests}" target="_blank">/actuator/metrics/http.server.requests</a></li>
+		<li><a th:href="@{/actuator}" target="_blank">List of actuator endpoints</a></li>
 	</ul>
 
 	<div th:replace="footer :: copy"></div>

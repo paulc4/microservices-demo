@@ -1,3 +1,24 @@
+/*
+ * File: Main.java
+ * Creation Date: 12 Aug 2021
+ *
+ * Copyright (c) 2021 T.N.Silverman - all rights reserved
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses  this file to you under the Apache License, Version
+ * 2.0 (the "License");  you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.pivotal.microservices.services;
 
 import java.net.InetAddress;
@@ -9,7 +30,7 @@ import io.pivotal.microservices.services.web.WebServer;
 /**
  * Allow the servers to be invoked from the command-line. The jar is built with
  * this as the <code>Main-Class</code> in the jar's <code>MANIFEST.MF</code>.
- * 
+ *
  * @author Paul Chapman
  */
 public class Main {
@@ -22,7 +43,7 @@ public class Main {
         String port = null;
 
         // Eureka server assumed to be on localhost
-        System.setProperty(RegistrationServer.REGISTRATION_SERVER_HOSTNAME, "localhost");
+        System.setProperty(RegistrationServer.REG_SERVER_HOSTNAME_KEY, "localhost");
 
         // Look for server name and (optional) port property
         // Ignore any -- arguments intended for Spring Boot
@@ -80,10 +101,9 @@ public class Main {
         System.out.println();
         System.out.println("Usage: java -jar ... <server-name> [server-port]");
         System.out.println("     where");
-        System.out.println("       server-name is 'reg', 'registration', " + "'accounts' or 'web'");
+        System.out.println("       server-name is 'reg', 'registration', 'accounts' or 'web'");
         System.out.println("       server-port > 1024");
-        System.out.println(
-                "     optionally specify --registration.server.hostname=<IP-address> if it is not running on localhost,");
+        System.out.println("     optionally specify --registration.server.hostname=<IP-address> if it is not running on localhost,");
         System.out.println();
     }
 }

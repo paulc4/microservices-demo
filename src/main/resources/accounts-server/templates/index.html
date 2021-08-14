@@ -1,32 +1,36 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <head th:replace="header :: copy"></head>
 
 <body>
 	<h1>Microservices Demo - Accounts Server</h1>
-
 	<p>Accounts Server Microservice is running.</p>
-
 	<p>
-		This account should exist: <a href="/accounts/123456789">123456789</a>.
-		Look in <code>data.sql</code> to see the rest
+		This account number should exist:
+		<a href="/accounts/search/123456789" th:href="@{/accounts/search/byNumber(number=123456789)}">123456789</a>
 	</p>
-
+	<p>
+		This account id should exist: <a href="/accounts/1">/accounts/1</a>.
+	</p>
+	<p>
+	    Open the&nbsp;<a th:href="@{/h2-console}">/h2-console</a> to query the H2 database and find out about other
+	    accounts.<br>
+	    Use the <i>jdbc-url</i>&nbsp;<code>jdbc:h2:mem:ACCOUNTS</code> with the default user <code>sa</code>.<br>
+	    No password is required.
+	</p>
 	<h3>Spring Boot URLs</h3>
-	<p>For those interested, Spring Boot provides RESTful URLs for
-		interrogating your application (they return JSON format data):</p>
+	<p>For those interested, Spring Boot provides RESTful URLs for interrogating your application (they return JSON format data):</p>
 
 	<ul>
 		<li><a th:href="@{/actuator/beans}">The beans</a></li>
 		<li><a th:href="@{/actuator/env}">The environment</a></li>
 		<li><a th:href="@{/actuator/health}">Application health</a></li>
-		<li><a th:href="@{/actuator/mappings}">URL Mappings</a> - including
-		     the /account mappings</li>
-		<li><a th:href="@{/actuator/metrics}">Application metrics</a> - add any 
-		     metric name to the end of this URL, for example 
-		     <a th:href="@{/actuator/metrics/http.server.requests}">/actuator/metrics/http.server.requests</a></li>
+		<li><a th:href="@{/actuator/mappings}">URL Mappings</a> - including the /account mappings</li>
+		<li>
+		    <a th:href="@{/actuator/metrics}">Application metrics</a> - add any metric name to the end of this URL, for example
+		    <a th:href="@{/actuator/metrics/http.server.requests}">/actuator/metrics/http.server.requests</a>
+		</li>
 		<li><a th:href="@{/actuator}">List of actuator endpoints</a></li>
 	</ul>
 
