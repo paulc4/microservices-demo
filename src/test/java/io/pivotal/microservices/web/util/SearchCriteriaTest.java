@@ -21,22 +21,23 @@
  */
 package io.pivotal.microservices.web.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import io.pivotal.microservices.accounts.AccountsConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import io.pivotal.microservices.accounts.AccountsConfig;
-import io.pivotal.microservices.web.util.SearchCriteria;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The test case SearchCriteriaTest tests the functionality of the
@@ -51,41 +52,50 @@ import io.pivotal.microservices.web.util.SearchCriteria;
 @ActiveProfiles({ "test" })
 class SearchCriteriaTest {
 
+	private static final Logger logger = LoggerFactory.getLogger(SearchCriteriaTest.class);
+
+	@BeforeEach
+	public void beforeTest(TestInfo info) throws Exception {
+		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
+		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
+	}
+
 	@Test
 	@DisplayName("test equals with self")
-	void whenComapredWithSelf_ThenEquals() {
+	void whenComparedWithSelf_ThenEquals() {
 		SearchCriteria actual = new SearchCriteria();
 		actual.setSearchText("test");
-		assertTrue(actual.equals(actual));
+		assertEquals(actual, actual);
 	}
 
 	@Test
 	@DisplayName("test not equals with other")
-	void whenComapredWithOther_ThenNotEquals() {
+	void whenComparedWithOther_ThenNotEquals() {
 		SearchCriteria actual = new SearchCriteria();
 		actual.setSearchText("self");
 		SearchCriteria other = new SearchCriteria();
 		other.setSearchText("other");
-		assertFalse(actual.equals(other));
+		assertNotEquals(actual, other);
 	}
 
 	@Test
 	@DisplayName("test not equals with null")
-	void whenComapredWithNull_ThenNotEquals() {
+	void whenComparedWithNull_ThenNotEquals() {
 		SearchCriteria actual = new SearchCriteria();
-		assertFalse(actual.equals(null));
+		assertNotEquals(null, actual);
 	}
 
 	@Test
 	@DisplayName("test not equals with another class instance")
-	void whenComapredWithAnotherClassInstance_ThenNotEquals() {
+	void whenComparedWithAnotherClassInstance_ThenNotEquals() {
 		SearchCriteria actual = new SearchCriteria();
-		assertFalse(actual.equals(new Object()));
+		assertNotEquals(actual, new Object());
 	}
 
 	@Test
-	@DisplayName("test different objects different hascodes")
-	void whenDifferentObjects_ThenDifferentHashcodes() {
+	@DisplayName("test different objects different hashcode")
+	void whenDifferentObjects_ThenDifferentHashcode() {
 		SearchCriteria actual = new SearchCriteria();
 		actual.setSearchText("self");
 		SearchCriteria other = new SearchCriteria();
@@ -94,8 +104,8 @@ class SearchCriteriaTest {
 	}
 
 	@Test
-	@DisplayName("test equal objects equal hascodes")
-	void whenEqualObjects_ThenEqualHashcodes() {
+	@DisplayName("test equal objects equal hashcode")
+	void whenEqualObjects_ThenEqualHashcode() {
 		SearchCriteria actual = new SearchCriteria();
 		actual.setSearchText("test");
 		SearchCriteria other = new SearchCriteria();
@@ -158,7 +168,7 @@ class SearchCriteriaTest {
 		String accountNumber = "101010101";
 		SearchCriteria actual = new SearchCriteria();
 		actual.setAccountNumber(accountNumber);
-		Errors errors = new BeanPropertyBindingResult(actual, "searchCritera");
+		Errors errors = new BeanPropertyBindingResult(actual, "searchCriteria");
 		assertFalse(actual.validate(errors)); // test for non-existence of validation errors
 	}
 
@@ -170,7 +180,7 @@ class SearchCriteriaTest {
 		SearchCriteria actual = new SearchCriteria();
 		actual.setAccountNumber(accountNumber);
 		actual.setSearchText(searchText);
-		Errors errors = new BeanPropertyBindingResult(actual, "searchCritera");
+		Errors errors = new BeanPropertyBindingResult(actual, "searchCriteria");
 		assertTrue(actual.validate(errors)); // test for existence of validation errors
 	}
 
@@ -180,7 +190,7 @@ class SearchCriteriaTest {
 		String accountNumber = "12345678";
 		SearchCriteria actual = new SearchCriteria();
 		actual.setAccountNumber(accountNumber);
-		Errors errors = new BeanPropertyBindingResult(actual, "searchCritera");
+		Errors errors = new BeanPropertyBindingResult(actual, "searchCriteria");
 		actual.validate(errors);
 		assertTrue(errors.hasErrors());
 	}
@@ -191,7 +201,7 @@ class SearchCriteriaTest {
 		String accountNumber = "abcdefghi";
 		SearchCriteria actual = new SearchCriteria();
 		actual.setAccountNumber(accountNumber);
-		Errors errors = new BeanPropertyBindingResult(actual, "searchCritera");
+		Errors errors = new BeanPropertyBindingResult(actual, "searchCriteria");
 		actual.validate(errors);
 		assertTrue(errors.hasErrors());
 	}
@@ -202,7 +212,7 @@ class SearchCriteriaTest {
 		String accountNumber = "";
 		SearchCriteria actual = new SearchCriteria();
 		actual.setAccountNumber(accountNumber);
-		Errors errors = new BeanPropertyBindingResult(actual, "searchCritera");
+		Errors errors = new BeanPropertyBindingResult(actual, "searchCriteria");
 		actual.validate(errors);
 		assertTrue(errors.hasErrors());
 	}

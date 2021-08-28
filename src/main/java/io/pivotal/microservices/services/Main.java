@@ -63,7 +63,7 @@ public class Main {
         }
 
         // No server name supplied, print usage and exit
-        if (serverName == NO_VALUE) {
+        if (serverName.equals(NO_VALUE)) {
             usage();
             return;
         }
@@ -81,16 +81,15 @@ public class Main {
         }
 
         // Determine which role this application will run as
-        if (serverName.equals("registration") || serverName.equals("reg")) {
-            RegistrationServer.main(args);
-        } else if (serverName.equals("accounts")) {
-            AccountsServer.main(args);
-        } else if (serverName.equals("web")) {
-            WebServer.main(args);
-        } else {
-            // Unrecognized server type - print usage and exit
-            System.out.println("Unknown server type: " + serverName);
-            usage();
+        switch (serverName) {
+            case "registration", "reg" -> RegistrationServer.main(args);
+            case "accounts" -> AccountsServer.main(args);
+            case "web" -> WebServer.main(args);
+            default -> {
+                // Unrecognized server type - print usage and exit
+                System.out.println("Unknown server type: " + serverName);
+                usage();
+            }
         }
     }
 

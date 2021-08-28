@@ -55,20 +55,20 @@ import io.pivotal.microservices.registration.RegistrationSecurityConfig;
 public class UrlMaskTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(UrlMaskTest.class);
-	private static String client = "client";
-	private static String password = "password";
-	private static String eurekaUrlFmt = "http://%s%s%s%s172.19.0.2:8761/eureka";
+	private static final String client = "client";
+	private static final String password = "password";
+	private static final String eurekaUrlFmt = "http://%s%s%s%s172.19.0.2:8761/eureka";
 
 	@BeforeEach
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test
 	@DisplayName("test mask password")
-	public void whenUrlContainsPassword_ThenMasked() throws Exception {
+	public void whenUrlContainsPassword_ThenMasked() {
 		String eurekaUrl = String.format(eurekaUrlFmt, client, ":", password, "@");
 		String actual = mask(eurekaUrl);
 		logger.debug("masked url: {}", actual);
@@ -76,8 +76,8 @@ public class UrlMaskTest {
 	}
 
 	@Test
-	@DisplayName("test dont mask password")
-	public void whenUrlDoesNotContainsPassword_ThenNotMasked() throws Exception {
+	@DisplayName("test don't mask password")
+	public void whenUrlDoesNotContainsPassword_ThenNotMasked() {
 		String eurekaUrl = String.format(eurekaUrlFmt, "", "", "", "");
 		String actual = mask(eurekaUrl);
 		logger.debug("url: {}", actual);
@@ -86,7 +86,7 @@ public class UrlMaskTest {
 
 	@Test
 	@DisplayName("test try mask password without password")
-	public void whenUrlContainsPartialInfo_ThenNotMasked() throws Exception {
+	public void whenUrlContainsPartialInfo_ThenNotMasked() {
 		String eurekaUrl = String.format(eurekaUrlFmt, client, "", "", "@");
 		String actual = mask(eurekaUrl);
 		logger.debug("url: {}", actual);
@@ -95,7 +95,7 @@ public class UrlMaskTest {
 
 	@Test
 	@DisplayName("test try mask password with junk url")
-	public void whenUrlContainsMalformedInfo_ThenNotMasked() throws Exception {
+	public void whenUrlContainsMalformedInfo_ThenNotMasked() {
 		String eurekaUrl = String.format(eurekaUrlFmt, "", ":", "", "@");
 		String actual = mask(eurekaUrl);
 		logger.debug("url: {}", actual);

@@ -109,10 +109,10 @@ public class WebAccountsController {
 		List<AccountRecord> accounts = new ArrayList<>();
 		try {
 			accounts = webAccountsService.findByOwner(name);
-			logger.debug("web-service findByOwner() found: {} acounts", (accounts == null ? 0 : accounts.size()));
+			logger.debug("web-service findByOwner() found: {} accounts", (accounts == null ? 0 : accounts.size()));
 			model.addAttribute("search", name);
 		} catch (Exception ex) {
-			logger.warn("Exception: {}", ex);
+			logger.warn("Exception: ", ex);
 		}
 		if (accounts != null)
 			model.addAttribute("accounts", accounts);

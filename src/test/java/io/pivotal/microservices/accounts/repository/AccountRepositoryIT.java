@@ -21,19 +21,8 @@
  */
 package io.pivotal.microservices.accounts.repository;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
+import io.pivotal.microservices.accounts.AccountsConfig;
+import io.pivotal.microservices.accounts.model.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,9 +38,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pivotal.microservices.accounts.AccountsConfig;
-import io.pivotal.microservices.accounts.model.Account;
-import io.pivotal.microservices.accounts.repository.AccountRepository;
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * test case for {@link AccountRepository}.
@@ -77,7 +70,7 @@ class AccountRepositoryIT {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@ParameterizedTest
@@ -87,7 +80,7 @@ class AccountRepositoryIT {
 		        "123456002,Cornelia J. LeClerc",
 		        "123456020,Maria J. Angelo"})
 	// @formatter:on
-	public void whenFindByAccountNumber_ThenFound(String accountNumber, String expected) throws Exception {
+	public void whenFindByAccountNumber_ThenFound(String accountNumber, String expected) {
 		Optional<Account> actual = accountRepository.byNumber(accountNumber);
 		// @formatter:off
 		assertAll(() -> assertFalse(actual.isEmpty()),
@@ -100,14 +93,14 @@ class AccountRepositoryIT {
 	// @formatter:off
 	@CsvSource({"987654321"})
 	// @formatter:on
-	public void whenFindByNoneExistingAccountNumber_ThenEmpty(String accountNumber) throws Exception {
+	public void whenFindByNoneExistingAccountNumber_ThenEmpty(String accountNumber) {
 		Optional<Account> actual = accountRepository.byNumber(accountNumber);
 		assertTrue(actual.isEmpty());
 	}
 
 	@Test
 	@DisplayName("test find by null account number")
-	public void whenFindByNullNumber_ThenEmpty() throws Exception {
+	public void whenFindByNullNumber_ThenEmpty() {
 		assertTrue(accountRepository.byNumber(null).isEmpty());
 	}
 
@@ -118,7 +111,7 @@ class AccountRepositoryIT {
 		        "123456002,Cornelia J. LeClerc",
 		        "123456020,Maria J. Angelo"})
 	// @formatter:on
-	public void whenFindByExistingOwner_ThenFound(String expected, String owner) throws Exception {
+	public void whenFindByExistingOwner_ThenFound(String expected, String owner) {
 		List<Account> actual = accountRepository.byOwner(owner);
 		// @formatter:off
 		assertAll(() -> assertNotNull(actual),
@@ -131,7 +124,7 @@ class AccountRepositoryIT {
 	@ParameterizedTest
 	@DisplayName("test find by bogus owner")
 	@CsvSource({ "Tester", "Bugsy" })
-	public void whenFindByNoneExistingOwner_ThenEmpty(String owner) throws Exception {
+	public void whenFindByNoneExistingOwner_ThenEmpty(String owner) {
 		List<Account> actual = accountRepository.byOwner(owner);
 		// @formatter:off
 		assertAll(() -> assertNotNull(actual),
@@ -141,7 +134,7 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test find all by owner")
-	public void whenFindByEmptyOwner_ThenAllFound() throws Exception {
+	public void whenFindByEmptyOwner_ThenAllFound() {
 		List<Account> actual = accountRepository.byOwner("");
 		// @formatter:off
 		assertAll(() -> assertNotNull(actual),
@@ -152,7 +145,7 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test find by null owner")
-	public void whenFindAccountByNullOwner_ThenEmpty() throws Exception {
+	public void whenFindAccountByNullOwner_ThenEmpty() {
 		assertEquals(numOfAccounts, accountRepository.byOwner(null).size());
 	}
 
@@ -162,7 +155,7 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test save account")
-	public void whenSaveNewAccount_ThenHasId() throws Exception {
+	public void whenSaveNewAccount_ThenHasId() {
 		Account actual = new Account("546732813", "Test Account", new BigDecimal("1000.00"));
 		accountRepository.save(actual);
 		assertNotNull(actual.getId());
@@ -170,7 +163,7 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test save and update account")
-	public void whenUpdateAccount_ThenUpdated() throws Exception {
+	public void whenUpdateAccount_ThenUpdated() {
 		Account actual = new Account("546732813", "Test Account", new BigDecimal("1000.00"));
 		accountRepository.save(actual);
 		actual.withdraw(new BigDecimal("500.00"));
@@ -182,7 +175,7 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test delete single account")
-	public void whenDeleteAccount_ThenNotFound() throws Exception {
+	public void whenDeleteAccount_ThenNotFound() {
 		Account actual = new Account("546732813", "Test Account", new BigDecimal("1000.00"));
 		accountRepository.save(actual);
 		actual.withdraw(new BigDecimal("500.00"));
@@ -196,20 +189,20 @@ class AccountRepositoryIT {
 
 	@Test
 	@DisplayName("test delete all accounts")
-	public void whenDeleteAll_ThenCountIsZero() throws Exception {
+	public void whenDeleteAll_ThenCountIsZero() {
 		accountRepository.deleteAll();
 		assertEquals(0, accountRepository.count());
 	}
 
 	@Test
 	@DisplayName("test get all account")
-	public void whenFindAll_ThenAllFound() throws Exception {
+	public void whenFindAll_ThenAllFound() {
 		assertEquals(numOfAccounts, accountRepository.findAll().spliterator().getExactSizeIfKnown());
 	}
 
 	@Test
 	@DisplayName("test count")
-	public void whenCount_ThenCorrect() throws Exception {
+	public void whenCount_ThenCorrect() {
 		assertEquals(numOfAccounts, accountRepository.count());
 	}
 

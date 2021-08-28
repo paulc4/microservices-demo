@@ -3,14 +3,8 @@
  */
 package io.pivotal.microservices.web.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-
+import io.pivotal.microservices.web.WebConfig;
+import io.pivotal.microservices.web.dto.AccountRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInfo;
@@ -27,9 +21,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pivotal.microservices.web.WebConfig;
-import io.pivotal.microservices.web.dto.AccountRecord;
-import io.pivotal.microservices.web.service.WebAccountsService;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Mock test case to test the functionality of the {@link WebAccountsService}
@@ -53,7 +49,7 @@ public class WebAccountsServiceTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@ParameterizedTest
@@ -64,8 +60,7 @@ public class WebAccountsServiceTest {
 			     "21,123456020,Maria J. Angelo,15380.00"})
 	// @formatter:on
 	// @Disabled
-	void whenFindByNumber_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance)
-			throws Exception {
+	void whenFindByNumber_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance) {
 		AccountRecord expected = new AccountRecord(id, accountNumber, owner, balance);
 		Mockito.when(webAccountsService.findByNumber(accountNumber)).thenReturn(expected);
 		// @formatter:off
@@ -87,7 +82,7 @@ public class WebAccountsServiceTest {
 			     "21,123456020,Maria J. Angelo,15380.00"})
 	// @formatter:on
 	// @Disabled
-	void whenFindById_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance) throws Exception {
+	void whenFindById_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance) {
 		AccountRecord expected = new AccountRecord(id, accountNumber, owner, balance);
 		Mockito.when(webAccountsService.findById(id)).thenReturn(expected);
 		// @formatter:off
@@ -109,8 +104,7 @@ public class WebAccountsServiceTest {
 			     "21,123456020,Maria J. Angelo,15380.00"})
 	// @formatter:on
 	// @Disabled
-	void whenFindByOwner_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance)
-			throws Exception {
+	void whenFindByOwner_ThenExpected(Long id, String accountNumber, String owner, BigDecimal balance) {
 		List<AccountRecord> accounts = List.of(new AccountRecord(id, accountNumber, owner, balance));
 		Mockito.when(webAccountsService.findByOwner(owner)).thenReturn(accounts);
 		// @formatter:off

@@ -21,11 +21,6 @@
  */
 package io.pivotal.microservices.web.config;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
-import java.nio.charset.Charset;
-import java.util.Base64;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,9 +36,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 /**
  * Security Configurations of the Web Service module.
- * This configuration is discoverd by {@code @ComponenetScan}
+ * This configuration is discovered by {@code @ComponentScan}
  * of the {@code WebConfig} configuration class at the root package
  * of the module
  *
@@ -62,16 +62,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // @formatter:on
 
 	/**
-	 * used in rest template excahnge calls
+	 * used in rest template exchange calls
 	 *
 	 * @return http headers map with
 	 *         {@code 'Authorization: Basic Y2xpZW50OnBhc3N3b3Jk'} entry
 	 */
 	@Bean
 	public HttpHeaders authHeaders() {
-		Charset ascii = Charset.forName("US-ASCII");
 		String auth = username + ":" + password;
-		byte[] encoded = Base64.getEncoder().encode(auth.getBytes(ascii));
+		byte[] encoded = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
 		String header = "Basic " + new String(encoded);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(AUTHORIZATION, header);
@@ -94,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers("/favicon.ico", "/resources/**", "/error/**");
 	}
 
@@ -122,16 +121,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	    .and()
     	    	.httpBasic();
 	}
-
-	/*@Override
-	// minimal security config (no auth header required in rest template calls)
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http.csrf().disable()
-		    	.authorizeRequests().anyRequest().permitAll()
-		    .and()
-		    	.httpBasic();
-		// @formatter:on
-	}*/
 
 }

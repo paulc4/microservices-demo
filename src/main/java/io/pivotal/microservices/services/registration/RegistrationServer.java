@@ -36,8 +36,8 @@ import io.pivotal.microservices.registration.RegistrationSecurityConfig;
 /**
  * Run a Eureka registration server.
  *
- * (to exclude security, place SecurityAutoConfiguration.class and
- * ManagementWebSecurityAutoConfiguration.class in the exclude section)
+ * (to exclude security, place SecurityAutoConfiguration class and
+ * ManagementWebSecurityAutoConfiguration class in the exclude section)
  *
  * @author Paul Chapman
  * @author T.N.Silverman
@@ -50,7 +50,7 @@ public class RegistrationServer {
 
 	public static final String REG_SERVER_HOSTNAME_KEY = "registration.server.hostname";
 	public static final String EUREKA_URL_KEY = "EUREKA_URL";
-	public static final String DEFUALT_EUREKA_URL = "localhost";
+	public static final String DEFAULT_EUREKA_URL = "localhost";
 
 	/**
 	 * Run the application using Spring Boot and an embedded servlet engine.
@@ -73,12 +73,12 @@ public class RegistrationServer {
 		try {
 			URL _url = new URL(url);
 			String userInfo = _url.getUserInfo();
-			if (null == userInfo || userInfo.indexOf(":") < 0)
+			if (null == userInfo || !userInfo.contains(":"))
 				return url;
 			String[] userInfoData = userInfo.split(":");
 			String password = userInfoData[1];
 			return url.replace(password, "*".repeat(password.length()));
-		} catch (Exception ex) { // not a url argument or malformed
+		} catch (Exception ex) { // not url argument or malformed
 			return url;
 		}
 	}

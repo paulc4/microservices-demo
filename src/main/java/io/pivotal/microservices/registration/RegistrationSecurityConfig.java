@@ -38,7 +38,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
-@Order(1) // wire this filter first so it's attempted before any others
+@Order(1) // wire this filter first, so it's attempted before any others
 public class RegistrationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// @formatter:off
@@ -53,7 +53,7 @@ public class RegistrationSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers("/favicon.ico", "/META-INF/resources/**", "/error/**");
 	}
 

@@ -59,11 +59,11 @@ public class SanityTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] {"test"} : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test
 	@DisplayName("test context loads")
-	public void whenTested_ThenContextLoads() throws Exception {
+	public void whenTested_ThenContextLoads() {
 	}
 }

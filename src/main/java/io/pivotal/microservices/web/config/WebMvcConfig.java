@@ -21,6 +21,7 @@
  */
 package io.pivotal.microservices.web.config;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.cache.CacheManager;
@@ -39,7 +40,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 
 /**
  * Web Mvc Configurations for the Web Service module.
- * This configuration is discoverd by {@code @ComponenetScan}
+ * This configuration is discovered by {@code @ComponentScan}
  * of the {@code WebConfig} configuration class at the root package
  * of the module
  *
@@ -77,7 +78,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
 		CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
 		caffeineCacheManager.setCaffeine(caffeine);
-		caffeineCacheManager.getCache("accounts").clear();
+		Objects.requireNonNull(caffeineCacheManager.getCache("accounts")).clear();
 		return caffeineCacheManager;
 	}
 

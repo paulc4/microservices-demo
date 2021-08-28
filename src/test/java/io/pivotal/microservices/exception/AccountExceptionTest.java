@@ -21,10 +21,7 @@
  */
 package io.pivotal.microservices.exception;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Arrays;
-
+import io.pivotal.microservices.accounts.AccountsConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,8 +34,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pivotal.microservices.accounts.AccountsConfig;
-import io.pivotal.microservices.exception.AccountNotFoundException;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * The AccountExceptionTest test is only here to satisfy Jacoco coverage requirements.
@@ -59,12 +58,12 @@ public class AccountExceptionTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test
 	@DisplayName("test construct account not found exception")
-	public void whenConstructed_ThenHasMessage() throws Exception {
+	public void whenConstructed_ThenHasMessage() {
 		String accountNumber = "101010101";
 		String expected = "No such account: " + accountNumber;
 		AccountNotFoundException exception = new AccountNotFoundException(accountNumber);

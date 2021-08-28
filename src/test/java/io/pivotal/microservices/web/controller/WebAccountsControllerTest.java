@@ -21,19 +21,11 @@
  */
 package io.pivotal.microservices.web.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.pivotal.microservices.web.WebConfig;
+import io.pivotal.microservices.web.dto.AccountRecord;
+import io.pivotal.microservices.web.service.WebAccountsService;
+import io.pivotal.microservices.web.util.SearchCriteria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,13 +46,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
-import io.pivotal.microservices.web.WebConfig;
-import io.pivotal.microservices.web.controller.WebAccountsController;
-import io.pivotal.microservices.web.dto.AccountRecord;
-import io.pivotal.microservices.web.service.WebAccountsService;
-import io.pivotal.microservices.web.util.SearchCriteria;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**
  * this test mocks the behavior of the {@code WebAccountsService} and tests the {@code WebAccountsController}
@@ -91,7 +86,7 @@ class WebAccountsControllerTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test

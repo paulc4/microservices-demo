@@ -50,10 +50,8 @@ public class AccountsSecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Value("${spring.security.user.name:client}") protected String username;
 	@Value("${spring.security.user.password:password}") protected String password;
-	//@Value("#{'${spring.security.user.roles:CLIENT}'.split(',')}") protected List<String> roles;
 	@Value("${spring.security.user.roles:CLIENT}") protected String[] roles;
     // @formatter:on
-
 
 	/*
 	 * Security Configurations
@@ -75,7 +73,7 @@ public class AccountsSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers("/favicon.ico", "/h2-console/**", "/resources/**", "/error/**");
 	}
 
@@ -103,17 +101,5 @@ public class AccountsSecurityConfig extends WebSecurityConfigurerAdapter {
     	    	.httpBasic();
 		// @formatter:on
 	}
-
-	/*
-	// minimal security config (no auth header required in rest template calls)
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http.csrf().disable()
-		    	.authorizeRequests().anyRequest().permitAll()
-		    .and()
-		    	.httpBasic();
-		// @formatter:on
-	}*/
 
 }

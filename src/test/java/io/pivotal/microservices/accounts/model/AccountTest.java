@@ -21,17 +21,7 @@
  */
 package io.pivotal.microservices.accounts.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-
+import io.pivotal.microservices.accounts.AccountsConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,8 +34,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pivotal.microservices.accounts.AccountsConfig;
-import io.pivotal.microservices.accounts.model.Account;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The test case AccountTest tests the basic constructs of domain object
@@ -69,12 +63,12 @@ public class AccountTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test
 	@DisplayName("test construct account with number and owner")
-	public void whenCustomConstructed1_ThenAssigned() throws Exception {
+	public void whenCustomConstructed1_ThenAssigned() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		Account actual = new Account(number, owner);
@@ -86,7 +80,7 @@ public class AccountTest {
 
 	@Test
 	@DisplayName("test construct account with number owner and balance")
-	public void whenCustomConstructed2_ThenAssigned() throws Exception {
+	public void whenCustomConstructed2_ThenAssigned() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
@@ -99,7 +93,7 @@ public class AccountTest {
 
 	@Test
 	@DisplayName("test deposit")
-	public void whenDeposit_ThenBalanceIsGreater() throws Exception {
+	public void whenDeposit_ThenBalanceIsGreater() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
@@ -111,7 +105,7 @@ public class AccountTest {
 
 	@Test
 	@DisplayName("test withdraw")
-	public void whenWithdraw_ThenBalanceIsLower() throws Exception {
+	public void whenWithdraw_ThenBalanceIsLower() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
@@ -123,60 +117,60 @@ public class AccountTest {
 
 	@Test
 	@DisplayName("test equals with self")
-	public void whenComparedWithSelf_ThenEquals() throws Exception {
+	public void whenComparedWithSelf_ThenEquals() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		Account actual = new Account(number, owner, balance);
-		assertTrue(actual.equals(actual));
+		assertEquals(actual, actual);
 	}
 
 	@Test
 	@DisplayName("test not equals with null")
-	public void whenComparedWithNull_ThenNotEquals() throws Exception {
+	public void whenComparedWithNull_ThenNotEquals() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		Account actual = new Account(number, owner, balance);
-		assertFalse(actual.equals(null));
+		assertNotEquals(null, actual);
 	}
 
 	@Test
 	@DisplayName("test equals with other")
-	public void whenComparedWithEqualOther_ThenEquals() throws Exception {
+	public void whenComparedWithEqualOther_ThenEquals() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		Account actual = new Account(number, owner, balance);
 		Account other = new Account(number, owner, balance);
-		assertTrue(actual.equals(other));
+		assertEquals(actual, other);
 	}
 
 	@Test
 	@DisplayName("test not equals with other")
-	public void whenComparedWithOther_ThenNotEquals() throws Exception {
+	public void whenComparedWithOther_ThenNotEquals() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		BigDecimal delta = new BigDecimal("500.00");
 		Account actual = new Account(number, owner, balance);
 		Account other = new Account(number, owner, delta);
-		assertFalse(actual.equals(other));
+		assertNotEquals(actual, other);
 	}
 
 	@Test
 	@DisplayName("test not equals with other class instance")
-	public void whenComparedWithOtherClassInstance_ThenNotEquals() throws Exception {
+	public void whenComparedWithOtherClassInstance_ThenNotEquals() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		Account actual = new Account(number, owner, balance);
-		assertFalse(actual.equals(new Object()));
+		assertNotEquals(actual, new Object());
 	}
 
 	@Test
-	@DisplayName("test equal accounts equal hashcodes")
-	public void whenEqualAccountsCompared_ThenSameHashcodes() throws Exception {
+	@DisplayName("test equal accounts equal hashcode")
+	public void whenEqualAccountsCompared_ThenSameHashcode() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
@@ -186,8 +180,8 @@ public class AccountTest {
 	}
 
 	@Test
-	@DisplayName("test different accounts different hashcodes")
-	public void whenDifferentAccountsCompared_ThenDifferentHashcodes() throws Exception {
+	@DisplayName("test different accounts different hashcode")
+	public void whenDifferentAccountsCompared_ThenDifferentHashcode() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
@@ -199,7 +193,7 @@ public class AccountTest {
 
 	@Test
 	@DisplayName("test to string")
-	public void whenToString_ThenDescriptive() throws Exception {
+	public void whenToString_ThenDescriptive() {
 		String number = "975313579";
 		String owner = "Test Account Owner";
 		BigDecimal balance = new BigDecimal("1000.00");

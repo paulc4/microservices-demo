@@ -65,7 +65,7 @@ public class WebAccountsService {
 
 	/**
 	 * The RestTemplate works because it uses a custom request-factory that uses
-	 * Ribbon to look-up the service to use. This method simply exists to show this.
+	 * Ribbon to look up the service to use. This method simply exists to show this.
 	 */
 	@PostConstruct
 	public void init() {
@@ -78,14 +78,14 @@ public class WebAccountsService {
 		logger.debug("findByNumber() invoked: for {}", accountNumber);
 		try {
 			String url = serviceUrl + "/accounts/search/byNumber?number={accountNumber}";
-			HttpEntity<String> request = new HttpEntity<String>(authHeaders);
+			HttpEntity<String> request = new HttpEntity<>(authHeaders);
 			ResponseEntity<AccountRecord> response = restTemplate.exchange(url, GET, request, AccountRecord.class,
 					accountNumber);
 			AccountRecord account = response.getBody();
 			logger.debug("found {}", account);
 			return account;
-		} catch (Exception e) {
-			logger.warn("Error: {}", e);
+		} catch (Exception ex) {
+			logger.warn("Error: ", ex);
 			return null;
 		}
 
@@ -95,7 +95,7 @@ public class WebAccountsService {
 	public AccountRecord findById(Long accountId) {
 		logger.debug("findById() invoked: for {}", accountId);
 		try {
-			HttpEntity<String> request = new HttpEntity<String>(authHeaders);
+			HttpEntity<String> request = new HttpEntity<>(authHeaders);
 			ResponseEntity<AccountRecord> response = restTemplate.exchange(serviceUrl + "/accounts/{accountId}", GET,
 					request, AccountRecord.class, accountId);
 			AccountRecord account = response.getBody();
@@ -109,19 +109,19 @@ public class WebAccountsService {
 
 	/* "#root.args[0]" or "#a0" or "#p0 */
 	@Cacheable(cacheNames = "accounts", key = "#name", unless = "#result == null or #result.isEmpty()")
-	public List<AccountRecord> findByOwner(String name) throws Exception {
+	public List<AccountRecord> findByOwner(String name) {
 		logger.debug("byOwner() invoked:  for {}", name);
 		List<AccountRecord> accounts = null;
 		try { // exchange for list logic
 			String url = serviceUrl + "/accounts/search/byOwner?owner={name}";
-			HttpEntity<String> request = new HttpEntity<String>(authHeaders);
+			HttpEntity<String> request = new HttpEntity<>(authHeaders);
 			ResponseEntity<String> response = restTemplate.exchange(url, GET, request, String.class, name);
 			JsonNode jsonNode = mapper.readTree(response.getBody());
 			String json = jsonNode.at("/_embedded/accounts").toString();
-			accounts = mapper.readValue(json, new TypeReference<List<AccountRecord>>() {
+			accounts = mapper.readValue(json, new TypeReference<>() {
 			});
-		} catch (Exception e) { // 404
-			logger.warn("Exception: {}", e);
+		} catch (Exception ex) { // 404
+			logger.warn("Exception: ", ex);
 		}
 		if (null == accounts || accounts.isEmpty()) {
 			logger.debug("accounts not found");
@@ -133,7 +133,7 @@ public class WebAccountsService {
 	}
 
 	/**
-	 * evict the accounts cache from entries under the given {@code cacheKey} (i.e
+	 * evict the accounts cache from entries under the given {@code cacheKey} i.e.
 	 * {@code accountNumber || accountId || name}
 	 *
 	 * @param cacheKey the cacheKey

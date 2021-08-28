@@ -24,6 +24,8 @@ package io.pivotal.microservices.exception;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
+import java.io.Serial;
+
 /**
  * Allow the controller to return a 404 if an account is not found by simply
  * throwing this exception. The @ResponseStatus causes Spring MVC to return a
@@ -34,6 +36,7 @@ import org.springframework.http.HttpStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class AccountNotFoundException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public AccountNotFoundException(String accountNumber) {

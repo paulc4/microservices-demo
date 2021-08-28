@@ -21,7 +21,7 @@
  */
 package io.pivotal.microservices.services.accounts;
 
-import static io.pivotal.microservices.services.registration.RegistrationServer.DEFUALT_EUREKA_URL;
+import static io.pivotal.microservices.services.registration.RegistrationServer.DEFAULT_EUREKA_URL;
 import static io.pivotal.microservices.services.registration.RegistrationServer.EUREKA_URL_KEY;
 import static io.pivotal.microservices.services.registration.RegistrationServer.REG_SERVER_HOSTNAME_KEY;
 import static io.pivotal.microservices.services.registration.RegistrationServer.mask;
@@ -76,7 +76,7 @@ public class AccountsServer {
 			if (null != eurekaUrl) {
 				logger.debug("EUREKA_URL '{}' found in system property '{}'", mask(eurekaUrl), REG_SERVER_HOSTNAME_KEY);
 			} else {
-				eurekaUrl = DEFUALT_EUREKA_URL;
+				eurekaUrl = DEFAULT_EUREKA_URL;
 				logger.debug("EUREKA_URL not found in system/env. defaults to: '{}'", mask(eurekaUrl));
 			}
 		} else

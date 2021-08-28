@@ -70,7 +70,7 @@ import io.pivotal.microservices.config.TestConfig;
 
 /**
  * The `RestApiIT` integration test is a MockMvc test for testing the new REST
- * API of the accounts module. This isn't a mock test. MockMvc just mocks the
+ * API of the account module. This isn't a mock test. MockMvc just mocks the
  * web server but the rest of it is very real. Hence, another integration test.
  *
  * @author T.N.Silverman
@@ -87,7 +87,7 @@ class RestApiIT {
 	private static final String restApiEndpoint = "/accounts";
 	private static final int numOfAccounts = 21;
 	// @formatter:off
-	@Autowired ObjectMapper mapper; // serializes and deserilizes json strings and accounts
+	@Autowired ObjectMapper mapper; // serializes and deserializes json strings and accounts
     @Autowired private WebApplicationContext webAppContext;
 	// @formatter:on
 
@@ -98,7 +98,7 @@ class RestApiIT {
 		this.mockMvc = webAppContextSetup(webAppContext).build();
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@ParameterizedTest

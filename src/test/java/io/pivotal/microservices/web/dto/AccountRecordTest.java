@@ -21,16 +21,7 @@
  */
 package io.pivotal.microservices.web.dto;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-
+import io.pivotal.microservices.accounts.AccountsConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,8 +33,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pivotal.microservices.accounts.AccountsConfig;
-import io.pivotal.microservices.web.dto.AccountRecord;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The test AccountRecordTest tests the basic constructs of domain object
@@ -63,12 +58,12 @@ public class AccountRecordTest {
 	public void beforeTest(TestInfo info) throws Exception {
 		ActiveProfiles annotation = getClass().getDeclaredAnnotation(ActiveProfiles.class);
 		String[] profiles = (null == annotation) ? new String[] { "test" } : annotation.value();
-		logger.debug("Entering {} with profile/s {}", info.getDisplayName(), Arrays.toString(profiles));
+		logger.debug("Entering '{}' with profile/s '{}'", info.getDisplayName(), Arrays.toString(profiles));
 	}
 
 	@Test
 	@DisplayName("test construct record")
-	public void whenConstruct_ThenAssigned() throws Exception {
+	public void whenConstruct_ThenAssigned() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
@@ -82,41 +77,41 @@ public class AccountRecordTest {
 
 	@Test
 	@DisplayName("test record equals with self")
-	public void whenComparedWithSelf_ThenEquals() throws Exception {
+	public void whenComparedWithSelf_ThenEquals() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		AccountRecord actual = new AccountRecord(id, number, owner, balance);
-		assertTrue(actual.equals(actual));
+		assertEquals(actual, actual);
 	}
 
 	@Test
 	@DisplayName("test record not equals with null")
-	public void whenComparedWithNull_ThenNotEquals() throws Exception {
+	public void whenComparedWithNull_ThenNotEquals() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		AccountRecord actual = new AccountRecord(id, number, owner, balance);
-		assertFalse(actual.equals(null));
+		assertNotEquals(null, actual);
 	}
 
 	@Test
 	@DisplayName("test record equals with other")
-	public void whenComparedWithEqualOther_ThenEquals() throws Exception {
+	public void whenComparedWithEqualOther_ThenEquals() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		AccountRecord actual = new AccountRecord(id, number, owner, balance);
 		AccountRecord other = new AccountRecord(id, number, owner, balance);
-		assertTrue(actual.equals(other));
+		assertEquals(actual, other);
 	}
 
 	@Test
 	@DisplayName("test record not equals with other")
-	public void whenComparedWithOther_ThenNotEquals() throws Exception {
+	public void whenComparedWithOther_ThenNotEquals() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
@@ -124,23 +119,23 @@ public class AccountRecordTest {
 		BigDecimal delta = new BigDecimal("500.00");
 		AccountRecord actual = new AccountRecord(id, number, owner, balance);
 		AccountRecord other = new AccountRecord(id, number, owner, delta);
-		assertFalse(actual.equals(other));
+		assertNotEquals(actual, other);
 	}
 
 	@Test
 	@DisplayName("test record not equals with other class instance")
-	public void whenComparedWithOtherClassInstance_ThenNotEquals() throws Exception {
+	public void whenComparedWithOtherClassInstance_ThenNotEquals() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
 		BigDecimal balance = new BigDecimal("1000.00");
 		AccountRecord actual = new AccountRecord(id, number, owner, balance);
-		assertFalse(actual.equals(new Object()));
+		assertNotEquals(actual, new Object());
 	}
 
 	@Test
-	@DisplayName("test records equal hashcodes equal")
-	public void whenEqualAccountRecordsCompared_ThenSameHashcodes() throws Exception {
+	@DisplayName("test records equal hashcode equal")
+	public void whenEqualAccountRecordsCompared_ThenSameHashcode() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
@@ -151,8 +146,8 @@ public class AccountRecordTest {
 	}
 
 	@Test
-	@DisplayName("test different record different hashcodes")
-	public void whenDifferentAccountRecordsCompared_ThenDifferentHashcodes() throws Exception {
+	@DisplayName("test different record different hashcode")
+	public void whenDifferentAccountRecordsCompared_ThenDifferentHashcode() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
@@ -165,7 +160,7 @@ public class AccountRecordTest {
 
 	@Test
 	@DisplayName("test to string")
-	public void whenToString_ThenDescriptive() throws Exception {
+	public void whenToString_ThenDescriptive() {
 		Long id = 987654321L;
 		String number = "975313579";
 		String owner = "Test AccountRecord Owner";
