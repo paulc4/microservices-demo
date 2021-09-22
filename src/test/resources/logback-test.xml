@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation) See here for more
+	details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<contextListener
+		class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<!-- To enable JMX Management -->
+	<jmxConfigurator />
+
+	<appender name="console"
+		class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+			<pattern>${PID}: %d{HH:mm:ss.SSS} [%thread] %-5level %logger{80}.%method ->
+			   %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="console" />
+	</root>
+
+	<logger name="org.springframework" level="WARN" />
+	<logger name="_org.springframework" level="WARN" />
+	<logger name="reactor" level="WARN" />
+	<logger name="jdk" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.apache.catalina" level="WARN" />
+	<logger name="org.apache.http" level="WARN" />
+	<logger name="com.zaxxer.hikari" level="WARN" />
+	<logger name="org.flywaydb.core.internal" level="WARN" />
+	<logger name="org.flywaydb.core.internal.command" level="INFO" />
+	<logger name="com.jayway.jsonpath" level="INFO" />
+    <logger name="io.pivotal.microservices" level="DEBUG" />
+
+
+
+</configuration>

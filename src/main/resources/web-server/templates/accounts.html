@@ -1,28 +1,24 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="header :: copy"></head>
-
 <body>
 	<h1>Accounts by Name</h1>
-
 	<div th:if="not ${accounts}">
 		<div class="alert alert-warning m-2">
 			No accounts found containing '<span th:text="${search}">text</span>'.
 		</div>
+		<div class="m-2"><span>try to&nbsp;<a th:href="@{/evict/accountName}">evict the cache</a></span></div>
 		<div style="height: 2cm">&nbsp;</div>
 	</div>
-
 	<div th:if="${accounts}">
 		<p>
-			Accounts whose owner contains ' <span th:text="${search}">text</span>'
-			are:
+			Accounts whose owner contains ' <span th:text="${search}">text</span>' are:
 		</p>
 
 		<table class="table table-striped">
 			<thead>
 				<tr>
+				    <th>Account ID</th>
 					<th>Account Number</th>
 					<th>Owner</th>
 					<th>Balance</th>
@@ -31,11 +27,10 @@
 
 			<tbody>
 				<tr th:each="account : ${accounts}">
-					<td><a href="account.html"
-						th:href="@{|/accounts/${account.number}|}"
-						th:text="|${account.number}|">11111111</a></td>
-					<td th:text="${account.owner}">Owner</td>
-					<td th:text="${account.balance}">0</td>
+					<td><a href="account.html" th:href="@{|/accounts/id/${account.id}|}" th:text="|${account.id}|">1</a></td>
+					<td><a href="account.html" th:href="@{|/accounts/number/${account.number}|}" th:text="|${account.number}|">123456789</a></td>
+					<td><a href="account.html" th:href="@{|/accounts/number/${account.number}|}" th:text="|${account.owner}|">Keri</a></td>
+					<td th:text="${account.balance}">500.00</td>
 				</tr>
 			</tbody>
 		</table>

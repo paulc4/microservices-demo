@@ -1,6 +1,5 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <head th:replace="header :: copy"></head>
 
@@ -8,16 +7,19 @@
 	<h1>Account Details</h1>
 
 	<div th:if="not ${account}">
-		<div class="m-3 alert alert-warning">
-			Unable to find account '<span th:text="${number}">number</span>'
-		</div>
+		<div class="m-3 alert alert-warning">Unable to find account '<span th:text="${number}">number</span>'</div>
+		<div class="m-3 alert alert-warning">try to&nbsp;<a th:href="@{/evict/accountNumber}">evict the cache</a></div>
 		<div style="height: 2cm">&nbsp;</div>
 	</div>
 
 	<div th:if="${account}" class="container">
 		<dl class="row">
+			<dt class="col-1">ID</dt>
+			<dd th:text="${account.id}">1</dd>
+		</dl>
+		<dl class="row">
 			<dt class="col-1">Number</dt>
-			<dd th:text="${account.number}">number</dd>
+			<dd th:text="${account.number}">123456789</dd>
 		</dl>
 		<dl class="row">
 			<dt class="col-1">Owner</dt>
@@ -33,8 +35,7 @@
 
 	<div class="row" style="text-align: right">
 	    <span class="col-12">
-		Options: &nbsp; <a th:href="@{/}">Home</a> | <a
-			th:href="@{/accounts/search}">Account Search</a></span>
+		Options: &nbsp; <a th:href="@{/}">Home</a> | <a th:href="@{/accounts/search}">Account Search</a></span>
 	</div>
 
 	<div th:replace="footer :: copy"></div>
