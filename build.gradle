@@ -1,12 +1,11 @@
 plugins {
-	id 'org.springframework.boot' version '2.0.1.RELEASE'
+    id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'maven-publish'
 }
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'maven'
-apply plugin: 'io.spring.dependency-management'
 
 assemble {
     manifest {
@@ -23,7 +22,7 @@ assemble {
 }
 
 group = 'org.springframework.samples.service.service'
-version = '2.0.0.RELEASE'
+version = '2.1.0.RELEASE'
 
 
 repositories {
@@ -31,20 +30,20 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
-    compile group: 'org.springframework.data', name: 'spring-data-commons'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-    compile group: 'org.hsqldb', name: 'hsqldb'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-server', version: '2.0.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.data:spring-data-commons'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.hsqldb:hsqldb'
+    implementation 'org.springframework.cloud:spring-cloud-starter'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:3.1.1'
 
-    testCompile 'junit:junit:4.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
 }
 
 springBoot {
-    mainClassName = "io.pivotal.microservices.services.Main"
+    mainClass = "io.pivotal.microservices.services.Main"
 }
 
